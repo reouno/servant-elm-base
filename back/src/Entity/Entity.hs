@@ -14,12 +14,16 @@ type User = Record '[ "name" >: Text, "email" >: Text, "createdAt" >: UTCTime]
 
 type UserId = Int
 
+type UserRecord = (UserId, User)
+
 type Url = Text
 
 type Diary
    = Record '[ "title" >: Text, "content" >: Text, "imageUrls" >: [Text], "allowAutoEdit" >: Bool, "createdAt" >: UTCTime, "updatedAt" >: UTCTime]
 
 type DiaryId = Int
+
+type DiaryRecord = (DiaryId, Diary)
 
 user1 :: User
 user1 =
@@ -29,6 +33,9 @@ user1 =
 
 user1Id :: UserId
 user1Id = 1
+
+user1Record :: UserRecord
+user1Record = (user1Id, user1)
 
 {-
  - user1 ^. #name
@@ -50,3 +57,6 @@ diary1 =
 
 diary1Id :: DiaryId
 diary1Id = 1
+
+diary1Record :: DiaryRecord
+diary1Record = (diary1Id, diary1)
