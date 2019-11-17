@@ -4,12 +4,13 @@
 module InterfaceAdapter.Presenter.Api where
 
 import           Servant
-import           ServantApi                              ( BaseCrudApi )
+import           ServantUtil                               ( BaseCrudApi )
 
 import           Entity.Entity
-import           InterfaceAdapter.Presenter.User.UserApi ( UserApi (..) )
+import           InterfaceAdapter.Presenter.Diary.DiaryApi ( DiaryApi (..) )
+import           InterfaceAdapter.Presenter.User.UserApi   ( UserApi (..) )
 
-type Api = "users" :> UserApi
+type Api = "users" :> UserApi :<|> "diaries" :> DiaryApi
 
 api :: Proxy Api
 api = Proxy

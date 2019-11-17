@@ -1,19 +1,21 @@
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 module InterfaceAdapter.Presenter.User.UserApiHandler where
 
 import           Control.Monad.IO.Class                  ( liftIO )
 import           Servant
 
-import           Entity.Entity                           ( User (..), user1, user1Id )
+import           Entity.Entity                           ( User, UserId, user1Record )
 import           InterfaceAdapter.Presenter.User.UserApi ( UserApi )
+import           ServantUtil                             ( BaseCrudApiPureHandler (..), Entity,
+                                                           EntityKey )
 
-userRecords = [(user1Id, user1)]
+instance Entity User
+
+instance EntityKey UserId
+
+instance BaseCrudApiPureHandler User UserId
 
 userApiHandler :: Server UserApi
-userApiHandler = getEntities :<|> newEntity :<|> operations
-  where
-    getEntities = liftIO $ return userRecords
-    newEntity = error "newEntity is not implemented yet"
-    operations id' = getEntity id' :<|> updateEntity id' :<|> deleteEntity id'
-    getEntity id' = liftIO $ return $ head [x | (i, x) <- userRecords, i == id']
-    updateEntity id' = error "updateEntity is not implemented yet"
-    deleteEntity id' = error "deleteEntity is not implemented yet"
+userApiHandler = baseCrudApiPureHandler [user1Record]
