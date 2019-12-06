@@ -10,7 +10,8 @@ import           Data.Extensible
 import           Data.Text
 import           Data.Time       ( UTCTime )
 
-type User = Record '[ "name" >: Text, "email" >: Text, "createdAt" >: UTCTime]
+type User
+   = Record '[ "name" >: Text, "email" >: Maybe Text, "createdAt" >: UTCTime]
 
 type UserId = Int
 
@@ -27,7 +28,7 @@ type DiaryRecord = (DiaryId, Diary)
 
 user1 :: User
 user1 =
-  #name @= "Neo" <: #email @= "neo@matrix.mov" <: #createdAt @=
+  #name @= "Neo" <: #email @= Just "neo@matrix.mov" <: #createdAt @=
   (read "1999-09-11 00:00:00" :: UTCTime) <:
   emptyRecord
 
@@ -36,6 +37,18 @@ user1Id = 1
 
 user1Record :: UserRecord
 user1Record = (user1Id, user1)
+
+user2 :: User
+user2 =
+  #name @= "Morpheus" <: #email @= Nothing <: #createdAt @=
+  (read "1812-09-11 00:00:00" :: UTCTime) <:
+  emptyRecord
+
+user2Id :: UserId
+user2Id = 2
+
+user2Record :: UserRecord
+user2Record = (user2Id, user2)
 
 {-
  - user1 ^. #name

@@ -5,33 +5,33 @@
 
 packages:
 - completed:
-    size: 3641
-    url: https://github.com/reouno/persistent-util/archive/0.1.0.14.14.tar.gz
+    size: 3800
+    url: https://github.com/reouno/persistent-util/archive/0.3.0.14.14.tar.gz
     cabal-file:
-      size: 969
-      sha256: a9257bc77ba35645cbf8e6bcda2deb1d6980460f7a0b188ec3265beeabb3faf9
+      size: 1024
+      sha256: 2fc67ba4aab4517e050b1da7aaf6fd4d126ed4616c27852e84ed5fccc6a64af4
     name: persistent-util
-    version: 0.1.0.0
-    sha256: 5f1e54c473b7ae3e61e12aaeaee0a009f24459447a9be3f71bc297cdf3d4b325
+    version: 0.3.0.14.14
+    sha256: dac2ae90c56489474cff1eefda7e321ae69754d85b1b70a8431a510c62353710
     pantry-tree:
-      size: 557
-      sha256: 9bbfd5b8c8dc411fd37a08a0b0687b7aa104f73e9696cb0bf0749bd04e9d96a4
+      size: 632
+      sha256: 9456c9456d824cd7b7439b097f3683a8d900b997f607db6ace4b089e8ea45dba
   original:
-    url: https://github.com/reouno/persistent-util/archive/0.1.0.14.14.tar.gz
+    url: https://github.com/reouno/persistent-util/archive/0.3.0.14.14.tar.gz
 - completed:
-    size: 3702
-    url: https://github.com/reouno/servant-util/archive/0.2.1.14.14.tar.gz
+    size: 3715
+    url: https://github.com/reouno/servant-util/archive/0.3.1.14.14.tar.gz
     cabal-file:
       size: 821
-      sha256: 5ab1a47b211fecb6aa7700b3da66f840290356b42368b89158299af960aef890
+      sha256: a57383fca9d2352cef07a7ed66a8e4a0f2f5227b1933210848fb61321fa16282
     name: servant-util
-    version: 0.2.0.14.14
-    sha256: d835df248135271f435eac54a3d16d39d1fd2fd637863cb7d60df76f66738161
+    version: 0.3.1.14.14
+    sha256: 4fce77bd06fbcb148e25f4f8daa71157e4ad5aa084028ab85a9f73541fed02f5
     pantry-tree:
       size: 545
-      sha256: d40bcf1cb9d2747a64c4db82c7cf5b3d0730e84bd12cad53665ea62515a6b0bd
+      sha256: 34e3fb99f66dc6d491ad67f66623df102698c5a9765d31b3183ac29631290c90
   original:
-    url: https://github.com/reouno/servant-util/archive/0.2.1.14.14.tar.gz
+    url: https://github.com/reouno/servant-util/archive/0.3.1.14.14.tar.gz
 - completed:
     hackage: extensible-0.6.1@sha256:d73a5dc13bd00f44ace729f83ce868e81a45ea31c7453a6f8a4a9b5b0591d600,2860
     pantry-tree:

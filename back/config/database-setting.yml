@@ -1,0 +1,6 @@
+user: '_env:PG_USER:seb-user'
+password: '_env:PG_PASS:user'
+host: '_env:PG_HOST:localhost'
+port: '_env:PG_PORT:5432'
+database: '_env:PG_DATABASE:seb-dev'
+poolsize: '_env:PG_POOLSIZE:10'

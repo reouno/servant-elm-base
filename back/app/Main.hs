@@ -1,8 +1,8 @@
 module Main where
 
-import           Network.Wai.Handler.Warp          ( run )
+import           Network.Wai.Handler.Warp ( run )
 
-import           InterfaceAdapter.Presenter.Server ( app )
+import           App.Server               ( mkApp )
 
 main :: IO ()
-main = run 8080 app
+main = run 8080 =<< mkApp

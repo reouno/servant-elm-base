@@ -37,10 +37,11 @@ library:
     - monad-logger
     - mtl
     - persistent
-    - persistent-sqlite
+    - persistent-postgresql
     - persistent-template
     - persistent-util
     - resource-pool
+    - resourcet
     - safe-exceptions
     - servant-elm
     - servant-server
@@ -49,7 +50,9 @@ library:
     - stm
     - text
     - time
+    - transformers
     - unordered-containers
+    - yaml
 
 executables:
   back-exe:

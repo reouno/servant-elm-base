@@ -4,11 +4,12 @@
 module InterfaceAdapter.Presenter.User.UserApi where
 
 import           Servant
-import           ServantUtil   ( BaseCrudApi )
 
 import           Entity.Entity ( User (..), UserId )
+import           ServantUtil   ( BaseCrudApi )
 
 type UserApi = BaseCrudApi User UserId
 
+--type UserApi = Get '[ JSON] [(UserId, User)]
 userApi :: Proxy UserApi
 userApi = Proxy
