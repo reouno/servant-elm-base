@@ -27,6 +27,7 @@ share
 User json
     name Text
     email Text
+    UniqueEmail email
     createdAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
 Diary json
