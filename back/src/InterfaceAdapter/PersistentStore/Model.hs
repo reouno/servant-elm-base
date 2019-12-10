@@ -26,7 +26,7 @@ share
   [persistLowerCase|
 User json
     name Text
-    email Text Maybe
+    email Text
     createdAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
 Diary json
