@@ -33,6 +33,8 @@ library:
     - directory
     - extensible
     - elm-bridge
+    - http-api-data
+    - http-types
     - lens
     - monad-logger
     - mtl
@@ -43,6 +45,8 @@ library:
     - resource-pool
     - resourcet
     - safe-exceptions
+    - servant
+    - servant-docs
     - servant-elm
     - servant-server
     - servant-util
@@ -52,6 +56,7 @@ library:
     - time
     - transformers
     - unordered-containers
+    - wai
     - yaml
 
 executables:

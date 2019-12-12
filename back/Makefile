@@ -1,7 +1,9 @@
 .SILENT:
 
+API_DOC_FILE=./docs/api.md
+
 .PHONY: all
-all: build graph stat-complexity
+all: build graph stat-complexity generate-docs
 
 .PHONY: build
 build:
@@ -16,8 +18,14 @@ graph:
 
 .PHONY: stat-complexity
 stat-complexity:
-	echo '🍅 Complexity analysis stats:\n'; \
+	echo '➿ Complexity analysis stats:\n'; \
 	homplexity-cli app/Main.hs src/ && echo '\n'
+
+.PHONY: generate-docs
+generate-docs:
+	echo '📚 Generating docs...'; \
+	stack runghc src/Util/GenerateApiDocs.hs $(API_DOC_FILE); \
+	echo '👉 Exported to $(API_DOC_FILE)'
 
 .PHONY: run
 run:

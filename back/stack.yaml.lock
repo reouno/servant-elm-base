@@ -5,19 +5,19 @@
 
 packages:
 - completed:
-    size: 3800
-    url: https://github.com/reouno/persistent-util/archive/0.3.0.14.14.tar.gz
+    size: 3777
+    url: https://github.com/reouno/persistent-util/archive/0.3.2.14.14.tar.gz
     cabal-file:
       size: 1024
-      sha256: 2fc67ba4aab4517e050b1da7aaf6fd4d126ed4616c27852e84ed5fccc6a64af4
+      sha256: 05c723cffafcd30ec0b7ae58c490427deb8156582a7b292e03ab63a854572dd8
     name: persistent-util
-    version: 0.3.0.14.14
-    sha256: dac2ae90c56489474cff1eefda7e321ae69754d85b1b70a8431a510c62353710
+    version: 0.3.2.14.14
+    sha256: 42b26a3241c6df1481850c7ac824e4a90fca616be90f8216546ca53e825c695c
     pantry-tree:
       size: 632
-      sha256: 9456c9456d824cd7b7439b097f3683a8d900b997f607db6ace4b089e8ea45dba
+      sha256: 218f310c3314861bd1b52951a985a1e1e855d5f3d658dff5c998592bbee734d7
   original:
-    url: https://github.com/reouno/persistent-util/archive/0.3.0.14.14.tar.gz
+    url: https://github.com/reouno/persistent-util/archive/0.3.2.14.14.tar.gz
 - completed:
     size: 3715
     url: https://github.com/reouno/servant-util/archive/0.3.1.14.14.tar.gz

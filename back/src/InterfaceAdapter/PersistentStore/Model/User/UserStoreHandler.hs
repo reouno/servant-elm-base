@@ -12,16 +12,18 @@ import           Data.Pool                                             ( Pool )
 import           Database.Persist
 import           Database.Persist.Sql
 import           PersistentUtil                                        ( delete', entity2Tuple,
-                                                                         get', insert', replace',
-                                                                         selectList' )
+                                                                         get', getBy', insert',
+                                                                         replace', selectList' )
 
 -- import           InterfaceAdapter.PersistentStore.Model
 import           Entity.Entity
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
 import           InterfaceAdapter.PersistentStore.Model.User.Adapter   ( fromEntityUser,
                                                                          fromEntityUserId,
+                                                                         fromEntityUserUniqueKey,
                                                                          toEntityUser,
-                                                                         toEntityUserId )
+                                                                         toEntityUserId,
+                                                                         toEntityUserRecord )
 import           Usecase.Interface.User.UserStore                      ( UserStore (..) )
 
 instance UserStore PgPool where
@@ -29,6 +31,8 @@ instance UserStore PgPool where
     where
       adapter (a, b) = (a, toEntityUser b)
   getUser pool key = fmap toEntityUser <$> get' (fromEntityUserId key) pool
+  getUserBy pool uniqueKey =
+    fmap toEntityUserRecord <$> getBy' (fromEntityUserUniqueKey uniqueKey) pool
   newUser pool user = toEntityUserId <$> insert' (fromEntityUser user) pool
   replaceUser pool id' user =
     replace' (fromEntityUserId id') (fromEntityUser user) pool

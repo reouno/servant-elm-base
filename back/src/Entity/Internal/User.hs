@@ -10,7 +10,11 @@ import           Data.Extensible
 import           Data.Text
 import           Data.Time       ( UTCTime )
 
-type User = Record '[ "name" >: Text, "email" >: Text, "createdAt" >: UTCTime]
+type Email = Text
+
+type UserUniqueKey = Email
+
+type User = Record '[ "name" >: Text, "email" >: Email, "createdAt" >: UTCTime]
 
 type UserId = Int
 
