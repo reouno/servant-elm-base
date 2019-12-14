@@ -5,7 +5,9 @@
 {-# LANGUAGE TypeOperators         #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Util.GenerateApiDocs where
+module App.Util.GenerateApiDocs
+  ( generateDocs
+  ) where
 
 import           Data.ByteString.Lazy           ( ByteString )
 import           Data.Proxy
@@ -25,7 +27,10 @@ import           Entity.Entity                  ( Diary (..), User (..), UserId,
 import           InterfaceAdapter.Presenter.Api ( Api, api )
 
 main :: IO ()
-main = do
+main = generateDocs
+
+generateDocs :: IO ()
+generateDocs = do
   args <- getArgs
   let filePath =
         if not (null args)

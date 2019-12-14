@@ -24,7 +24,7 @@ stat-complexity:
 .PHONY: generate-docs
 generate-docs:
 	echo '📚 Generating docs...'; \
-	stack runghc src/Util/GenerateApiDocs.hs $(API_DOC_FILE); \
+	stack runghc src/App/Util/GenerateApiDocs.hs $(API_DOC_FILE); \
 	echo '👉 Exported to $(API_DOC_FILE)'
 
 .PHONY: run
