@@ -5,5 +5,5 @@ import           Usecase.Interface.User.UserStore ( UserStore )
 class UserStore pool =>
       PersistentStore pool
   where
-  mkPool :: IO pool
+  withPool :: (pool -> IO a) -> IO a
   doMigration :: pool -> IO ()
