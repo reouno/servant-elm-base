@@ -2,6 +2,8 @@
 
 # API
 
+detail documentation: https://github.com/reouno/servant-elm-base/blob/master/back/docs/api.md
+
 ### `/users`
 
 ```
