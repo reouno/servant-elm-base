@@ -8,10 +8,11 @@ module Entity.Internal.Diary where
 import           Control.Lens
 import           Data.Extensible
 import           Data.Text
-import           Data.Time       ( UTCTime )
+import           Data.Time            ( UTCTime )
+import           Entity.Internal.User ( UserId )
 
 type Diary
-   = Record '[ "title" >: Text, "content" >: Text, "imageUrls" >: [Text], "allowAutoEdit" >: Bool, "createdAt" >: UTCTime, "updatedAt" >: UTCTime]
+   = Record '[ "title" >: Text, "content" >: Text, "imageUrls" >: [Text], "allowAutoEdit" >: Bool, "createdAt" >: UTCTime, "updatedAt" >: UTCTime, "userId" >: UserId]
 
 type DiaryId = Int
 
@@ -29,6 +30,8 @@ diary1 =
   (read "2019-11-11 11:11:11" :: UTCTime) <:
   #updatedAt @=
   (read "2019-11-11 11:11:11" :: UTCTime) <:
+  #userId @=
+  1 <:
   emptyRecord
 
 diary1Id :: DiaryId

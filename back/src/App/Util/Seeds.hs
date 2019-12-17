@@ -81,6 +81,8 @@ diary1 =
   (read "2019-11-11 11:11:11" :: UTCTime) <:
   #updatedAt @=
   (read "2019-11-11 11:11:11" :: UTCTime) <:
+  #userId @=
+  1 <:
   emptyRecord
 
 diary2 :: Diary
@@ -104,4 +106,6 @@ diary2 =
   (read "2019-11-11 11:11:11" :: UTCTime) <:
   #updatedAt @=
   (read "2019-11-11 11:11:11" :: UTCTime) <:
+  #userId @=
+  2 <:
   emptyRecord
