@@ -41,6 +41,5 @@ Diary json
 DiaryImage json
     diaryId DiaryId
     url Text
-    createdAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
 |]
