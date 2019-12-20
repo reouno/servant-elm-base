@@ -1,5 +1,13 @@
 # back
 
+# Build and Run
+
+```
+make all
+make init-db
+make run
+```
+
 # API
 
 detail documentation: https://github.com/reouno/servant-elm-base/blob/master/back/docs/api.md
