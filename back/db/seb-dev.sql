@@ -65,8 +65,7 @@ ALTER SEQUENCE public.diary_id_seq OWNED BY public.diary.id;
 CREATE TABLE public.diary_image (
     id bigint NOT NULL,
     diary_id bigint NOT NULL,
-    url character varying NOT NULL,
-    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    url character varying NOT NULL
 );
 
 
@@ -161,7 +160,7 @@ COPY public.diary (id, user_id, title, content, allow_auto_edit, created_at, upd
 -- Data for Name: diary_image; Type: TABLE DATA; Schema: public; Owner: seb-user
 --
 
-COPY public.diary_image (id, diary_id, url, created_at) FROM stdin;
+COPY public.diary_image (id, diary_id, url) FROM stdin;
 \.
 
 
@@ -170,6 +169,9 @@ COPY public.diary_image (id, diary_id, url, created_at) FROM stdin;
 --
 
 COPY public."user" (id, name, email, created_at) FROM stdin;
+1	Neo	neo@matrix.mov	1999-09-11 09:00:00+09
+2	Morpheus	morpheus@matrix.mov	1812-09-11 09:18:59+09:18:59
+3	Trinity	trinity@matrix.mov	1995-12-31 21:13:14+09
 \.
 
 
@@ -191,7 +193,7 @@ SELECT pg_catalog.setval('public.diary_image_id_seq', 1, false);
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: seb-user
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 10, true);
+SELECT pg_catalog.setval('public.user_id_seq', 3, true);
 
 
 --

@@ -32,3 +32,21 @@ run:
 	echo 'running...'; \
 	stack exec back-exe
 
+.PHONY: init-db
+init-db: reset-db migrate-db seeds-db
+
+.PHONY: reset-db
+reset-db:
+	./db/reset.sh
+
+.PHONY: migrate-db
+migrate-db:
+	./db/migrate.sh
+
+.PHONY: seeds-db
+seeds-db:
+	./db/seeds.sh
+
+.PHONY: dump-schema
+dump-schema:
+	./db/dump.sh
