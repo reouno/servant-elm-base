@@ -22,8 +22,8 @@ import           System.Environment             ( getArgs )
 import           Web.FormUrlEncoded             ( FromForm (..), ToForm (..) )
 
 import           App.Server
-import           Entity.Entity                  ( Diary (..), User (..), UserId, UserUniqueKey,
-                                                  diary1, user1, user1Id )
+import           App.Util.Seeds                 ( diary1, user1 )
+import           Entity.Entity                  ( Diary (..), User (..), UserId, UserUniqueKey )
 import           InterfaceAdapter.Presenter.Api ( Api, api )
 
 main :: IO ()
@@ -58,3 +58,6 @@ instance ToSample Diary where
 
 apiDocs :: API
 apiDocs = docs api
+
+user1Id :: UserId
+user1Id = 1
