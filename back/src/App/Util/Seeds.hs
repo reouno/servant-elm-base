@@ -11,7 +11,7 @@ import           Control.Lens
 import           Control.Monad                                         ( forM_ )
 import           Control.Monad.IO.Class                                ( liftIO )
 import           Data.Extensible
-import           Data.Text
+import           Data.Text                                             hiding ( map )
 import           Data.Time
 
 import           Database.Persist.Sql
@@ -22,6 +22,8 @@ import           InterfaceAdapter.PersistentStore.Infra.Postgres
 
 import           Entity.Entity                                         ( Diary (..), User (..) )
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
+import qualified InterfaceAdapter.PersistentStore.Model                as M
+import           InterfaceAdapter.PersistentStore.Model.Diary.Adapter  ( fromEntityDiary )
 import           InterfaceAdapter.PersistentStore.Model.User.Adapter   ( fromEntityUser )
 import           Usecase.Interface.PersistentStore.PersistentStore     ( PersistentStore (doMigration, withPool) )
 
@@ -33,16 +35,19 @@ plantSeeds =
   withPool $ \(pool :: PgPool) -> do
     putStrLn "seeds were planted."
     insertUsers pool
+    insertDiaries pool
 
 insertUsers :: PgPool -> IO ()
 insertUsers pool =
   forM_ users $ \user -> runSqlPool (insert_ . fromEntityUser $ user) pool
 
--- FIXME: You cannot do this directly because the record structure of entity diary and diary table are different.
---        Entity Diary have to be stored separately as "diary" and "diary_image" in DB.
--- insertDiaries :: PgPool -> IO ()
--- insertDiaries pool =
---   forM_ diaries $ \diary -> runSqlPool (insert_ . fromEntityDiary $ diary) pool
+insertDiaries :: PgPool -> IO ()
+insertDiaries pool =
+  forM_ (map fromEntityDiary diaries) $ \(diary, images) -> do
+    diaryId <- runSqlPool (insert diary) pool
+    forM_ images $ \image ->
+      runSqlPool (insert_ $ M.DiaryImage diaryId image) pool
+
 users :: [User]
 users = [user1, user2, user3]
 
@@ -97,8 +102,8 @@ diary2 =
   \6. Seek first to understand, then to be understood\n\
   \7. Synergize\n" <:
   #imageUrls @=
-  [ "https://upload.wikimedia.org/wikipedia/commons/c/c4/Apricot_fruit.jpg"
-  , "https://bedemco.com/bdc/wp-content/uploads/2017/12/shutterstock_178969106-1-1-570x385.jpg"
+  [ "https://m.media-amazon.com/images/I/51OuvCFwyZL._SL500_.jpg"
+  , "https://archive.sltrib.com/images/2012/0717/biz_obit-covey_071712~2.jpg"
   ] <:
   #allowAutoEdit @=
   True <:
