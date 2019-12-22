@@ -31,24 +31,49 @@ get1Entity ::
   -> ReaderT SqlBackend IO (Maybe record)
 get1Entity id' = get $ int2SqlKey id'
 
+{-
+ - User utility
+ -}
 get1User :: Int -> ReaderT SqlBackend IO (Maybe M.User)
 get1User = get1Entity
 
 runGet1User :: Int -> PgPool -> IO (Maybe M.User)
 runGet1User id' = runSqlPool $ get1User id'
 
+runGetUsers :: PgPool -> IO [Entity M.User]
+runGetUsers = runSqlPool $ selectList [] []
+
+{-
+ - Diary utility
+ -}
 get1Diary :: Int -> ReaderT SqlBackend IO (Maybe M.Diary)
 get1Diary = get1Entity
 
 runGet1Diary :: Int -> PgPool -> IO (Maybe M.Diary)
 runGet1Diary id' = runSqlPool $ get1Diary id'
 
+runGetDiaries :: PgPool -> IO [Entity M.Diary]
+runGetDiaries = runSqlPool $ selectList [] []
+
+{-
+ - DiaryImage utility
+ -}
 get1DiaryImage :: Int -> ReaderT SqlBackend IO (Maybe M.DiaryImage)
 get1DiaryImage = get1Entity
 
 runGet1DiaryImage :: Int -> PgPool -> IO (Maybe M.DiaryImage)
 runGet1DiaryImage id' = runSqlPool $ get1DiaryImage id'
 
+runGetDiaryImages :: PgPool -> IO [Entity M.DiaryImage]
+runGetDiaryImages = runSqlPool $ selectList [] []
+
+getDiaryImagesWithConditions :: Int -> PgPool -> IO [Entity M.DiaryImage]
+getDiaryImagesWithConditions id' =
+  runSqlPool (selectList [M.DiaryImageDiaryId ==. int2SqlKey id'] [LimitTo 3])
+
+{-
+ - Others
+ -}
 runMultipleActionsInSingleTransaction :: PgPool -> IO (Maybe M.Diary)
 runMultipleActionsInSingleTransaction pool =
   flip runSqlPool pool $ do
