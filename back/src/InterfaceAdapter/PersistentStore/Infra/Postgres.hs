@@ -4,19 +4,17 @@
 
 module InterfaceAdapter.PersistentStore.Infra.Postgres where
 
-import           Control.Monad.IO.Class                                       ( liftIO )
-import           Control.Monad.Logger                                         ( runStderrLoggingT,
-                                                                                runStdoutLoggingT )
-import           Data.Yaml.Config                                             ( loadYamlSettings,
-                                                                                useEnv )
+import           Control.Monad.IO.Class                                         ( liftIO )
+import           Control.Monad.Logger                                           ( runStderrLoggingT )
+import           Data.Yaml.Config                                               ( loadYamlSettings,
+                                                                                  useEnv )
 import           Database.Persist.Postgresql
-import           Database.Persist.Sql
-import           Servant                                                      ( Application )
 
-import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types        ( PgPool )
-import           InterfaceAdapter.PersistentStore.Model                       ( migrateAll )
+import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types          ( PgPool )
+import           InterfaceAdapter.PersistentStore.Model                         ( migrateAll )
+import           InterfaceAdapter.PersistentStore.Model.Diary.DiaryStoreHandler
 import           InterfaceAdapter.PersistentStore.Model.User.UserStoreHandler
-import           Usecase.Interface.PersistentStore.PersistentStore            ( PersistentStore (..) )
+import           Usecase.Interface.PersistentStore.PersistentStore              ( PersistentStore (..) )
 
 instance PersistentStore PgPool where
   withPool = withPgPool
