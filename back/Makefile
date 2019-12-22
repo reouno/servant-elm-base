@@ -13,8 +13,8 @@ build:
 .PHONY: graph
 graph:
 	echo '🔀 exporting dependency graph to ./data/modules.pdf and ./data/modules.png'; \
-	find src -name "*.hs" | xargs graphmod -q | dot -Tpdf > data/modules.pdf; \
-	find src -name "*.hs" | xargs graphmod -q | dot -Tpng -Gdpi=300 > data/modules.png
+	find src -name "*.hs" | xargs graphmod -q -p | dot -Tpdf > data/modules.pdf; \
+	find src -name "*.hs" | xargs graphmod -q -p | dot -Tpng -Gdpi=300 > data/modules.png
 
 .PHONY: stat-complexity
 stat-complexity:
