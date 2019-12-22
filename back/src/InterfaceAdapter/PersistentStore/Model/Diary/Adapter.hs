@@ -7,7 +7,7 @@ module InterfaceAdapter.PersistentStore.Model.Diary.Adapter where
 import           Control.Lens
 import           Data.Extensible
 import           Data.Text                                           hiding ( map )
-import           Database.Persist.Sql                                ( entityKey, entityVal )
+import           Database.Persist.Sql
 import           Database.Persist.Types                              ( Entity )
 
 import           Entity.Entity                                       ( Diary (..), DiaryId,
@@ -32,6 +32,9 @@ fromEntityDiary diary = (diary', images)
         (diary ^. #updatedAt)
     images = diary ^. #imageUrls
 
+fromEntityDiaryId :: DiaryId -> M.DiaryId
+fromEntityDiaryId = int2SqlKey
+
 -- NOTE: Can take [M.DiaryImage] as an argument instead of [Text]
 --       but use the similar I/F with `fromEntityDiary`
 toEntityDiary :: M.Diary -> [Text] -> Diary
@@ -44,8 +47,11 @@ toEntityDiary (M.Diary userId title content allowAutoEdit createdAt updatedAt) i
   #updatedAt @=
   updatedAt <:
   #userId @=
-  (toEntityUserId userId) <:
+  toEntityUserId userId <:
   emptyRecord
 
 toEntityDiary' :: M.Diary -> [M.DiaryImage] -> Diary
 toEntityDiary' diary images = toEntityDiary diary $ map M.diaryImageUrl images
+
+toEntityDiaryId :: M.DiaryId -> DiaryId
+toEntityDiaryId = sqlKey2Int
