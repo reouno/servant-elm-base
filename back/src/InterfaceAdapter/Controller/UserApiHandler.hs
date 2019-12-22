@@ -1,4 +1,4 @@
-module InterfaceAdapter.Controller.PlainUserServer where
+module InterfaceAdapter.Controller.UserApiHandler where
 
 import           Control.Monad.IO.Class                            ( liftIO )
 import           Servant                                           ( (:<|>) (..), NoContent (..),
@@ -28,5 +28,5 @@ manipulationApiHandler = getEntityByUniqueKey
   where
     getEntityByUniqueKey pool key = liftIO $ getUserBy pool key
 
-plainUserServer :: PersistentStore pool => pool -> Server UserApi
-plainUserServer pool = baseApiHandler pool :<|> manipulationApiHandler pool
+userApiHandler :: PersistentStore pool => pool -> Server UserApi
+userApiHandler pool = baseApiHandler pool :<|> manipulationApiHandler pool
