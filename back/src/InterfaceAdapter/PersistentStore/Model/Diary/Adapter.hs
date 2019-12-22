@@ -6,14 +6,15 @@ module InterfaceAdapter.PersistentStore.Model.Diary.Adapter where
 
 import           Control.Lens
 import           Data.Extensible
-import           Data.Text
+import           Data.Text                                           hiding ( map )
 import           Database.Persist.Sql                                ( entityKey, entityVal )
 import           Database.Persist.Types                              ( Entity )
 
 import           Entity.Entity                                       ( Diary (..), DiaryId,
                                                                        DiaryRecord )
 import qualified InterfaceAdapter.PersistentStore.Model              as M
-import           InterfaceAdapter.PersistentStore.Model.User.Adapter ( fromEntityUserId )
+import           InterfaceAdapter.PersistentStore.Model.User.Adapter ( fromEntityUserId,
+                                                                       toEntityUserId )
 import           PersistentUtil                                      ( entity2Tuple, int2SqlKey,
                                                                        sqlKey2Int )
 
@@ -30,3 +31,21 @@ fromEntityDiary diary = (diary', images)
         (diary ^. #createdAt)
         (diary ^. #updatedAt)
     images = diary ^. #imageUrls
+
+-- NOTE: Can take [M.DiaryImage] as an argument instead of [Text]
+--       but use the similar I/F with `fromEntityDiary`
+toEntityDiary :: M.Diary -> [Text] -> Diary
+toEntityDiary (M.Diary userId title content allowAutoEdit createdAt updatedAt) images =
+  #title @= title <: #content @= content <: #imageUrls @= images <:
+  #allowAutoEdit @=
+  allowAutoEdit <:
+  #createdAt @=
+  createdAt <:
+  #updatedAt @=
+  updatedAt <:
+  #userId @=
+  (toEntityUserId userId) <:
+  emptyRecord
+
+toEntityDiary' :: M.Diary -> [M.DiaryImage] -> Diary
+toEntityDiary' diary images = toEntityDiary diary $ map M.diaryImageUrl images
