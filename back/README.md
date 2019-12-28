@@ -46,3 +46,7 @@ curl -XGET 127.0.0.1:8080/diaries
 # get diary by int ID
 curl -XGET 127.0.0.1:8080/diaries/1
 ```
+
+# Dependency graph
+
+![graph](https://github.com/reouno/servant-elm-base/blob/master/back/data/modules.png)
