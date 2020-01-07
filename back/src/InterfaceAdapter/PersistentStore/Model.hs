@@ -30,7 +30,7 @@ User json
     UniqueEmail email
     createdAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
-Diary json
+Post json
     userId UserId
     title Text
     content Text
@@ -39,7 +39,7 @@ Diary json
     updatedAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
 DiaryImage json
-    diaryId DiaryId
+    postId PostId
     url Text
     deriving Read Eq Generic Show
 |]

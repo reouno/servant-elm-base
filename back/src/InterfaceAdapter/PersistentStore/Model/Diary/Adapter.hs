@@ -18,12 +18,12 @@ import           InterfaceAdapter.PersistentStore.Model.User.Adapter ( fromEntit
 import           PersistentUtil                                      ( entity2Tuple, int2SqlKey,
                                                                        sqlKey2Int )
 
--- NOTE: Cannot create M.DiaryImage data because the DiaryId is unknown.
-fromEntityDiary :: Diary -> (M.Diary, [Text])
+-- NOTE: Cannot create M.DiaryImage data because the PostId is unknown.
+fromEntityDiary :: Diary -> (M.Post, [Text])
 fromEntityDiary diary = (diary', images)
   where
     diary' =
-      M.Diary
+      M.Post
         (fromEntityUserId $ diary ^. #userId)
         (diary ^. #title)
         (diary ^. #content)
@@ -32,13 +32,13 @@ fromEntityDiary diary = (diary', images)
         (diary ^. #updatedAt)
     images = diary ^. #imageUrls
 
-fromEntityDiaryId :: DiaryId -> M.DiaryId
+fromEntityDiaryId :: DiaryId -> M.PostId
 fromEntityDiaryId = int2SqlKey
 
 -- NOTE: Can take [M.DiaryImage] as an argument instead of [Text]
 --       but use the similar I/F with `fromEntityDiary`
-toEntityDiary :: M.Diary -> [Text] -> Diary
-toEntityDiary (M.Diary userId title content allowAutoEdit createdAt updatedAt) images =
+toEntityDiary :: M.Post -> [Text] -> Diary
+toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) images =
   #title @= title <: #content @= content <: #imageUrls @= images <:
   #allowAutoEdit @=
   allowAutoEdit <:
@@ -50,8 +50,8 @@ toEntityDiary (M.Diary userId title content allowAutoEdit createdAt updatedAt) i
   toEntityUserId userId <:
   emptyRecord
 
-toEntityDiary' :: M.Diary -> [M.DiaryImage] -> Diary
+toEntityDiary' :: M.Post -> [M.DiaryImage] -> Diary
 toEntityDiary' diary images = toEntityDiary diary $ map M.diaryImageUrl images
 
-toEntityDiaryId :: M.DiaryId -> DiaryId
+toEntityDiaryId :: M.PostId -> DiaryId
 toEntityDiaryId = sqlKey2Int

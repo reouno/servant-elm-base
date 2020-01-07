@@ -44,15 +44,15 @@ runGetUsers :: PgPool -> IO [Entity M.User]
 runGetUsers = runSqlPool $ selectList [] []
 
 {-
- - Diary utility
+ - Post utility
  -}
-get1Diary :: Int -> ReaderT SqlBackend IO (Maybe M.Diary)
+get1Diary :: Int -> ReaderT SqlBackend IO (Maybe M.Post)
 get1Diary = get1Entity
 
-runGet1Diary :: Int -> PgPool -> IO (Maybe M.Diary)
+runGet1Diary :: Int -> PgPool -> IO (Maybe M.Post)
 runGet1Diary id' = runSqlPool $ get1Diary id'
 
-runGetDiaries :: PgPool -> IO [Entity M.Diary]
+runGetDiaries :: PgPool -> IO [Entity M.Post]
 runGetDiaries = runSqlPool $ selectList [] []
 
 {-
@@ -69,12 +69,12 @@ runGetDiaryImages = runSqlPool $ selectList [] []
 
 getDiaryImagesWithConditions :: Int -> PgPool -> IO [Entity M.DiaryImage]
 getDiaryImagesWithConditions id' =
-  runSqlPool (selectList [M.DiaryImageDiaryId ==. int2SqlKey id'] [LimitTo 3])
+  runSqlPool (selectList [M.DiaryImagePostId ==. int2SqlKey id'] [LimitTo 3])
 
 {-
  - Others
  -}
-runMultipleActionsInSingleTransaction :: PgPool -> IO (Maybe M.Diary)
+runMultipleActionsInSingleTransaction :: PgPool -> IO (Maybe M.Post)
 runMultipleActionsInSingleTransaction pool =
   flip runSqlPool pool $ do
     get1User 1
