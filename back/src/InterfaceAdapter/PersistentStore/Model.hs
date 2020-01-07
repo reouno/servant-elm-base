@@ -38,7 +38,7 @@ Post json
     createdAt UTCTime default=CURRENT_TIMESTAMP
     updatedAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
-DiaryImage json
+PostImage json
     postId PostId
     url Text
     deriving Read Eq Generic Show

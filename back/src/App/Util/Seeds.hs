@@ -46,7 +46,7 @@ insertDiaries pool =
   forM_ (map fromEntityDiary diaries) $ \(diary, images) -> do
     diaryId <- runSqlPool (insert diary) pool
     forM_ images $ \image ->
-      runSqlPool (insert_ $ M.DiaryImage diaryId image) pool
+      runSqlPool (insert_ $ M.PostImage diaryId image) pool
 
 users :: [User]
 users = [user1, user2, user3]

@@ -50,8 +50,8 @@ toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) im
   toEntityUserId userId <:
   emptyRecord
 
-toEntityDiary' :: M.Post -> [M.DiaryImage] -> Diary
-toEntityDiary' diary images = toEntityDiary diary $ map M.diaryImageUrl images
+toEntityDiary' :: M.Post -> [M.PostImage] -> Diary
+toEntityDiary' diary images = toEntityDiary diary $ map M.postImageUrl images
 
 toEntityDiaryId :: M.PostId -> DiaryId
 toEntityDiaryId = sqlKey2Int

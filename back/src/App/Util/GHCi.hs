@@ -56,20 +56,20 @@ runGetDiaries :: PgPool -> IO [Entity M.Post]
 runGetDiaries = runSqlPool $ selectList [] []
 
 {-
- - DiaryImage utility
+ - PostImage utility
  -}
-get1DiaryImage :: Int -> ReaderT SqlBackend IO (Maybe M.DiaryImage)
+get1DiaryImage :: Int -> ReaderT SqlBackend IO (Maybe M.PostImage)
 get1DiaryImage = get1Entity
 
-runGet1DiaryImage :: Int -> PgPool -> IO (Maybe M.DiaryImage)
+runGet1DiaryImage :: Int -> PgPool -> IO (Maybe M.PostImage)
 runGet1DiaryImage id' = runSqlPool $ get1DiaryImage id'
 
-runGetDiaryImages :: PgPool -> IO [Entity M.DiaryImage]
+runGetDiaryImages :: PgPool -> IO [Entity M.PostImage]
 runGetDiaryImages = runSqlPool $ selectList [] []
 
-getDiaryImagesWithConditions :: Int -> PgPool -> IO [Entity M.DiaryImage]
+getDiaryImagesWithConditions :: Int -> PgPool -> IO [Entity M.PostImage]
 getDiaryImagesWithConditions id' =
-  runSqlPool (selectList [M.DiaryImagePostId ==. int2SqlKey id'] [LimitTo 3])
+  runSqlPool (selectList [M.PostImagePostId ==. int2SqlKey id'] [LimitTo 3])
 
 {-
  - Others

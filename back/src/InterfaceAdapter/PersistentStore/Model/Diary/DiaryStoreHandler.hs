@@ -31,7 +31,7 @@ instance DiaryStore PgPool where
     let (diary', images) = fromEntityDiary diary
     flip runSqlPool pool $ do
       diaryId <- insert diary'
-      mapM_ (insert_ . M.DiaryImage diaryId) images
+      mapM_ (insert_ . M.PostImage diaryId) images
       liftIO . return $ toEntityDiaryId diaryId
   getDiary pool diaryId =
     flip runSqlPool pool $ do
@@ -39,7 +39,7 @@ instance DiaryStore PgPool where
       mayDiary <- get diaryKey
       case mayDiary of
         Just diary -> do
-          images <- selectList [M.DiaryImagePostId ==. diaryKey] []
+          images <- selectList [M.PostImagePostId ==. diaryKey] []
           liftIO . return . Just $ toEntityDiary' diary $ map entityVal images
         Nothing -> liftIO $ return Nothing
   replaceDiary pool diaryId diary =
@@ -47,18 +47,18 @@ instance DiaryStore PgPool where
       let (diary', images) = fromEntityDiary diary
           diaryKey = fromEntityDiaryId diaryId
       replace diaryKey diary'
-      deleteWhere [M.DiaryImagePostId ==. diaryKey]
-      mapM_ (insert_ . M.DiaryImage diaryKey) images
+      deleteWhere [M.PostImagePostId ==. diaryKey]
+      mapM_ (insert_ . M.PostImage diaryKey) images
   deleteDiary pool diaryId =
     flip runSqlPool pool $ do
       let diaryKey = fromEntityDiaryId diaryId
       delete diaryKey
-      deleteWhere [M.DiaryImagePostId ==. diaryKey]
+      deleteWhere [M.PostImagePostId ==. diaryKey]
 
 joinImages2Diary ::
      MonadUnliftIO m => Entity M.Post -> ReaderT SqlBackend m DiaryRecord
 joinImages2Diary diary = do
   let diaryKey = entityKey diary
-  images <- selectList [M.DiaryImagePostId ==. diaryKey] []
+  images <- selectList [M.PostImagePostId ==. diaryKey] []
   let diary' = toEntityDiary' (entityVal diary) $ map entityVal images
   return (toEntityDiaryId diaryKey, diary')
