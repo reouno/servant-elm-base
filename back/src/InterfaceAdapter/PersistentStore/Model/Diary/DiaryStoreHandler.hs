@@ -13,7 +13,7 @@ import           Control.Monad.Reader                                  ( ReaderT
 import           Database.Persist
 import           Database.Persist.Sql
 
-import           Entity.Entity                                         ( DiaryRecord )
+import           Entity.Entity                                         ( PostRecord )
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
 import qualified InterfaceAdapter.PersistentStore.Model                as M
 import           InterfaceAdapter.PersistentStore.Model.Diary.Adapter  ( fromEntityDiary,
@@ -56,7 +56,7 @@ instance DiaryStore PgPool where
       deleteWhere [M.PostImagePostId ==. diaryKey]
 
 joinImages2Diary ::
-     MonadUnliftIO m => Entity M.Post -> ReaderT SqlBackend m DiaryRecord
+     MonadUnliftIO m => Entity M.Post -> ReaderT SqlBackend m PostRecord
 joinImages2Diary diary = do
   let diaryKey = entityKey diary
   images <- selectList [M.PostImagePostId ==. diaryKey] []

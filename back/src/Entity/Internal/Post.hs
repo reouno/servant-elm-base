@@ -10,9 +10,9 @@ import           Data.Text
 import           Data.Time            ( UTCTime )
 import           Entity.Internal.User ( UserId )
 
-type Diary
+type Post
    = Record '[ "title" >: Text, "content" >: Text, "imageUrls" >: [Text], "allowAutoEdit" >: Bool, "createdAt" >: UTCTime, "updatedAt" >: UTCTime, "userId" >: UserId]
 
-type DiaryId = Int
+type PostId = Int
 
-type DiaryRecord = (DiaryId, Diary)
+type PostRecord = (PostId, Post)

@@ -10,16 +10,16 @@ import           Data.Text                                           hiding ( ma
 import           Database.Persist.Sql
 import           Database.Persist.Types                              ( Entity )
 
-import           Entity.Entity                                       ( Diary (..), DiaryId,
-                                                                       DiaryRecord )
+import           Entity.Entity                                       ( Post (..), PostId,
+                                                                       PostRecord )
 import qualified InterfaceAdapter.PersistentStore.Model              as M
 import           InterfaceAdapter.PersistentStore.Model.User.Adapter ( fromEntityUserId,
                                                                        toEntityUserId )
 import           PersistentUtil                                      ( entity2Tuple, int2SqlKey,
                                                                        sqlKey2Int )
 
--- NOTE: Cannot create M.DiaryImage data because the PostId is unknown.
-fromEntityDiary :: Diary -> (M.Post, [Text])
+-- NOTE: Cannot create M.PostImage data because the PostId is unknown.
+fromEntityDiary :: Post -> (M.Post, [Text])
 fromEntityDiary diary = (diary', images)
   where
     diary' =
@@ -32,12 +32,12 @@ fromEntityDiary diary = (diary', images)
         (diary ^. #updatedAt)
     images = diary ^. #imageUrls
 
-fromEntityDiaryId :: DiaryId -> M.PostId
+fromEntityDiaryId :: PostId -> M.PostId
 fromEntityDiaryId = int2SqlKey
 
--- NOTE: Can take [M.DiaryImage] as an argument instead of [Text]
+-- NOTE: Can take [M.PostImage] as an argument instead of [Text]
 --       but use the similar I/F with `fromEntityDiary`
-toEntityDiary :: M.Post -> [Text] -> Diary
+toEntityDiary :: M.Post -> [Text] -> Post
 toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) images =
   #title @= title <: #content @= content <: #imageUrls @= images <:
   #allowAutoEdit @=
@@ -50,8 +50,8 @@ toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) im
   toEntityUserId userId <:
   emptyRecord
 
-toEntityDiary' :: M.Post -> [M.PostImage] -> Diary
+toEntityDiary' :: M.Post -> [M.PostImage] -> Post
 toEntityDiary' diary images = toEntityDiary diary $ map M.postImageUrl images
 
-toEntityDiaryId :: M.PostId -> DiaryId
+toEntityDiaryId :: M.PostId -> PostId
 toEntityDiaryId = sqlKey2Int

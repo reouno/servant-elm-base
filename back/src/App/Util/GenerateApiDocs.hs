@@ -15,7 +15,7 @@ import           Data.Text.Lazy                 ( pack )
 import           Data.Text.Lazy.Encoding        ( encodeUtf8 )
 import           Network.HTTP.Types
 import           Network.Wai
-import           Servant.API
+import           Servant.API                    hiding ( Post )
 import           Servant.Docs
 import           Servant.Server
 import           System.Environment             ( getArgs )
@@ -23,7 +23,7 @@ import           Web.FormUrlEncoded             ( FromForm (..), ToForm (..) )
 
 import           App.Server
 import           App.Util.Seeds                 ( diary1, user1 )
-import           Entity.Entity                  ( Diary (..), User (..), UserId, UserUniqueKey )
+import           Entity.Entity                  ( Post (..), User (..), UserId, UserUniqueKey )
 import           InterfaceAdapter.Presenter.Api ( Api, api )
 
 main :: IO ()
@@ -53,7 +53,7 @@ instance ToSample UserId where
 instance ToSample UserUniqueKey where
   toSamples _ = singleSample "neo@matrix.mov"
 
-instance ToSample Diary where
+instance ToSample Post where
   toSamples _ = singleSample diary1
 
 apiDocs :: API
