@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE TypeOperators    #-}
 
-module Entity.Internal.Diary where
+module Entity.Internal.Post where
 
 import           Control.Lens
 import           Data.Extensible

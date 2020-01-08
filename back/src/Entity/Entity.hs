@@ -1,7 +1,7 @@
 module Entity.Entity
-  ( module Entity.Internal.Diary
+  ( module Entity.Internal.Post
   , module Entity.Internal.User
   ) where
 
-import           Entity.Internal.Diary
+import           Entity.Internal.Post
 import           Entity.Internal.User
