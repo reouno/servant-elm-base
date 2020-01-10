@@ -8,6 +8,7 @@ import           Control.Lens
 import           Data.Extensible
 import           Data.Text
 import           Data.Time       ( UTCTime )
+import           Elm.Derive      ( defaultOptions, deriveBoth )
 
 type Email = Text
 

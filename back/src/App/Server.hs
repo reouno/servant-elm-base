@@ -8,13 +8,13 @@ import           Servant
 import           InterfaceAdapter.Controller.UserApiHandler            ( userApiHandler )
 import           InterfaceAdapter.PersistentStore.Infra.Postgres
 
-import           InterfaceAdapter.Controller.DiaryApiHandler           ( diaryApiHandler )
+import           InterfaceAdapter.Controller.PostApiHandler            ( postApiHandler )
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
 import           InterfaceAdapter.Presenter.Api                        ( Api, api )
 import           Usecase.Interface.PersistentStore.PersistentStore     ( PersistentStore (withPool) )
 
 server :: PersistentStore pool => pool -> Server Api
-server pool = userApiHandler pool :<|> diaryApiHandler pool
+server pool = userApiHandler pool :<|> postApiHandler pool
 
 app :: PersistentStore pool => pool -> Application
 app pool = serve api $ server pool

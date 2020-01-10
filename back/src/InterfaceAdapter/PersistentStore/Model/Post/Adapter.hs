@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE TypeOperators    #-}
 
-module InterfaceAdapter.PersistentStore.Model.Diary.Adapter where
+module InterfaceAdapter.PersistentStore.Model.Post.Adapter where
 
 import           Control.Lens
 import           Data.Extensible
@@ -19,26 +19,26 @@ import           PersistentUtil                                      ( entity2Tu
                                                                        sqlKey2Int )
 
 -- NOTE: Cannot create M.PostImage data because the PostId is unknown.
-fromEntityDiary :: Post -> (M.Post, [Text])
-fromEntityDiary diary = (diary', images)
+fromEntityPost :: Post -> (M.Post, [Text])
+fromEntityPost post = (post', images)
   where
-    diary' =
+    post' =
       M.Post
-        (fromEntityUserId $ diary ^. #userId)
-        (diary ^. #title)
-        (diary ^. #content)
-        (diary ^. #allowAutoEdit)
-        (diary ^. #createdAt)
-        (diary ^. #updatedAt)
-    images = diary ^. #imageUrls
+        (fromEntityUserId $ post ^. #userId)
+        (post ^. #title)
+        (post ^. #content)
+        (post ^. #allowAutoEdit)
+        (post ^. #createdAt)
+        (post ^. #updatedAt)
+    images = post ^. #imageUrls
 
-fromEntityDiaryId :: PostId -> M.PostId
-fromEntityDiaryId = int2SqlKey
+fromEntityPostId :: PostId -> M.PostId
+fromEntityPostId = int2SqlKey
 
 -- NOTE: Can take [M.PostImage] as an argument instead of [Text]
---       but use the similar I/F with `fromEntityDiary`
-toEntityDiary :: M.Post -> [Text] -> Post
-toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) images =
+--       but use the similar I/F with `fromEntityPost`
+toEntityPost :: M.Post -> [Text] -> Post
+toEntityPost (M.Post userId title content allowAutoEdit createdAt updatedAt) images =
   #title @= title <: #content @= content <: #imageUrls @= images <:
   #allowAutoEdit @=
   allowAutoEdit <:
@@ -50,8 +50,8 @@ toEntityDiary (M.Post userId title content allowAutoEdit createdAt updatedAt) im
   toEntityUserId userId <:
   emptyRecord
 
-toEntityDiary' :: M.Post -> [M.PostImage] -> Post
-toEntityDiary' diary images = toEntityDiary diary $ map M.postImageUrl images
+toEntityPost' :: M.Post -> [M.PostImage] -> Post
+toEntityPost' post images = toEntityPost post $ map M.postImageUrl images
 
-toEntityDiaryId :: M.PostId -> PostId
-toEntityDiaryId = sqlKey2Int
+toEntityPostId :: M.PostId -> PostId
+toEntityPostId = sqlKey2Int

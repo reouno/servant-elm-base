@@ -22,7 +22,7 @@ import           System.Environment             ( getArgs )
 import           Web.FormUrlEncoded             ( FromForm (..), ToForm (..) )
 
 import           App.Server
-import           App.Util.Seeds                 ( diary1, user1 )
+import           App.Util.Seeds                 ( post1, user1 )
 import           Entity.Entity                  ( Post (..), User (..), UserId, UserUniqueKey )
 import           InterfaceAdapter.Presenter.Api ( Api, api )
 
@@ -54,7 +54,7 @@ instance ToSample UserUniqueKey where
   toSamples _ = singleSample "neo@matrix.mov"
 
 instance ToSample Post where
-  toSamples _ = singleSample diary1
+  toSamples _ = singleSample post1
 
 apiDocs :: API
 apiDocs = docs api

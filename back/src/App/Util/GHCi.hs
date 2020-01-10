@@ -46,29 +46,29 @@ runGetUsers = runSqlPool $ selectList [] []
 {-
  - Post utility
  -}
-get1Diary :: Int -> ReaderT SqlBackend IO (Maybe M.Post)
-get1Diary = get1Entity
+get1Post :: Int -> ReaderT SqlBackend IO (Maybe M.Post)
+get1Post = get1Entity
 
-runGet1Diary :: Int -> PgPool -> IO (Maybe M.Post)
-runGet1Diary id' = runSqlPool $ get1Diary id'
+runGet1Post :: Int -> PgPool -> IO (Maybe M.Post)
+runGet1Post id' = runSqlPool $ get1Post id'
 
-runGetDiaries :: PgPool -> IO [Entity M.Post]
-runGetDiaries = runSqlPool $ selectList [] []
+runGetPosts :: PgPool -> IO [Entity M.Post]
+runGetPosts = runSqlPool $ selectList [] []
 
 {-
  - PostImage utility
  -}
-get1DiaryImage :: Int -> ReaderT SqlBackend IO (Maybe M.PostImage)
-get1DiaryImage = get1Entity
+get1PostImage :: Int -> ReaderT SqlBackend IO (Maybe M.PostImage)
+get1PostImage = get1Entity
 
-runGet1DiaryImage :: Int -> PgPool -> IO (Maybe M.PostImage)
-runGet1DiaryImage id' = runSqlPool $ get1DiaryImage id'
+runGet1PostImage :: Int -> PgPool -> IO (Maybe M.PostImage)
+runGet1PostImage id' = runSqlPool $ get1PostImage id'
 
-runGetDiaryImages :: PgPool -> IO [Entity M.PostImage]
-runGetDiaryImages = runSqlPool $ selectList [] []
+runGetPostImages :: PgPool -> IO [Entity M.PostImage]
+runGetPostImages = runSqlPool $ selectList [] []
 
-getDiaryImagesWithConditions :: Int -> PgPool -> IO [Entity M.PostImage]
-getDiaryImagesWithConditions id' =
+getPostImagesWithConditions :: Int -> PgPool -> IO [Entity M.PostImage]
+getPostImagesWithConditions id' =
   runSqlPool (selectList [M.PostImagePostId ==. int2SqlKey id'] [LimitTo 3])
 
 {-
@@ -79,4 +79,4 @@ runMultipleActionsInSingleTransaction pool =
   flip runSqlPool pool $ do
     get1User 1
     get1User 2
-    get1Diary 1
+    get1Post 1
