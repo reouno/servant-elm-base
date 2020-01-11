@@ -53,4 +53,4 @@ TBD
 
 # Dependency graph
 
-![graph](https://github.com/reouno/servant-elm-base/blob/master/back/data/modules.png)
+![graph](https://github.com/reouno/servant-elm-base/blob/master/data/modules.png)
