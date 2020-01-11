@@ -42,4 +42,8 @@ PostImage json
     postId PostId
     url Text
     deriving Read Eq Generic Show
+Like json
+    postId PostId
+    userId UserId
+    deriving Read Eq Generic Show
 |]
