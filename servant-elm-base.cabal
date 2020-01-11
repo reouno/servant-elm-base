@@ -1,0 +1,120 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 97221c1b0ce037254609e187e2b32faa1e9853351e5cd94fb4a8c616117ef279
+
+name:           servant-elm-base
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/servant-elm-base#readme>
+homepage:       https://github.com/githubuser/servant-elm-base#readme
+bug-reports:    https://github.com/githubuser/servant-elm-base/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/servant-elm-base
+
+library
+  exposed-modules:
+      App.Server
+      App.Util.GenerateApiDocs
+      App.Util.GHCi
+      App.Util.Migrate
+      App.Util.Seeds
+      Entity.Entity
+      Entity.Internal.Post
+      Entity.Internal.User
+      InterfaceAdapter.Controller.PostApiHandler
+      InterfaceAdapter.Controller.UserApiHandler
+      InterfaceAdapter.PersistentStore.Infra.Postgres
+      InterfaceAdapter.PersistentStore.Infra.Postgres.Types
+      InterfaceAdapter.PersistentStore.Model
+      InterfaceAdapter.PersistentStore.Model.Post.Adapter
+      InterfaceAdapter.PersistentStore.Model.Post.PostStoreHandler
+      InterfaceAdapter.PersistentStore.Model.User.Adapter
+      InterfaceAdapter.PersistentStore.Model.User.UserStoreHandler
+      InterfaceAdapter.Presenter.Api
+      InterfaceAdapter.Presenter.Post.PostApi
+      InterfaceAdapter.Presenter.User.UserApi
+      Usecase.Interactor.PlainPostServer
+      Usecase.Interactor.PlainUserServer
+      Usecase.Interface.PersistentStore.PersistentStore
+      Usecase.Interface.Post.PostStore
+      Usecase.Interface.User.UserStore
+  other-modules:
+      Paths_servant_elm_base
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , basement
+    , bytestring
+    , conduit
+    , constraints
+    , directory
+    , elm-bridge
+    , extensible
+    , http-api-data
+    , http-types
+    , lens
+    , monad-logger
+    , mtl
+    , persistent
+    , persistent-postgresql
+    , persistent-template
+    , persistent-util
+    , resource-pool
+    , resourcet
+    , safe-exceptions
+    , servant
+    , servant-docs
+    , servant-elm
+    , servant-server
+    , servant-util
+    , stm
+    , string-conversions
+    , text
+    , time
+    , transformers
+    , unordered-containers
+    , wai
+    , yaml
+  default-language: Haskell2010
+
+executable servant-elm-base-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_servant_elm_base
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , servant-elm-base
+    , warp
+  default-language: Haskell2010
+
+test-suite servant-elm-base-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_servant_elm_base
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , servant-elm-base
+  default-language: Haskell2010

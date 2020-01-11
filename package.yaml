@@ -1,6 +1,6 @@
-name: back
+name: servant-elm-base
 version: 0.1.0.0
-github: 'githubuser/back'
+github: 'githubuser/servant-elm-base'
 license: BSD3
 author: 'Author name here'
 maintainer: 'example@example.com'
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description: Please see the README on GitHub at <https://github.com/githubuser/back#readme>
+description: Please see the README on GitHub at <https://github.com/githubuser/servant-elm-base#readme>
 
 dependencies:
   - base >= 4.7 && < 5
@@ -60,7 +60,7 @@ library:
     - yaml
 
 executables:
-  back-exe:
+  servant-elm-base-exe:
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -68,11 +68,11 @@ executables:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - back
+      - servant-elm-base
       - warp
 
 tests:
-  back-test:
+  servant-elm-base-test:
     main: Spec.hs
     source-dirs: test
     ghc-options:
@@ -80,4 +80,4 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - back
+      - servant-elm-base

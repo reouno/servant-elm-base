@@ -1,20 +1,62 @@
 .SILENT:
 
-.PHONY: build
-build: build-back build-front
+API_DOC_FILE=./docs/api.md
 
-.PHONY: back
-build-back:
-	echo '🌙 build backend...'; \
-	cd back && make all
+.PHONY: all
+all: build-back build-front
 
+### backend ###
+.PHONY: build-back
+build-back: stack-build graph stat-complexity generate-docs
+
+.PHONY: stack-build
+stack-build:
+	echo '🏗  stack build'; \
+	stack build
+
+.PHONY: graph
+graph:
+	echo '🔀 exporting dependency graph to ./data/modules.pdf and ./data/modules.png'; \
+	find src -name "*.hs" | xargs graphmod -q -p | dot -Tpdf > data/modules.pdf; \
+	find src -name "*.hs" | xargs graphmod -q -p | dot -Tpng -Gdpi=300 > data/modules.png
+
+.PHONY: stat-complexity
+stat-complexity:
+	echo '➿ Complexity analysis stats:\n'; \
+	homplexity-cli app/Main.hs src/ && echo '\n'
+
+.PHONY: generate-docs
+generate-docs:
+	echo '📚 Generating docs...'; \
+	stack runghc src/App/Util/GenerateApiDocs.hs $(API_DOC_FILE); \
+	echo '👉 Exported to $(API_DOC_FILE)'
+
+.PHONY: run
+run:
+	echo '🏃 running...'; \
+	stack exec servant-elm-base-exe
+
+.PHONY: init-db
+init-db: reset-db migrate-db seeds-db
+
+.PHONY: reset-db
+reset-db:
+	./db/reset.sh
+
+.PHONY: migrate-db
+migrate-db:
+	./db/migrate.sh
+
+.PHONY: seeds-db
+seeds-db:
+	./db/seeds.sh
+
+.PHONY: dump-schema
+dump-schema:
+	./db/dump.sh
+
+### frontend ###
 .PHONY: build-front
 build-front:
 	echo '🌞 build frontend...'; \
 	cd front
-
-.PHONY: run
-run: run-back
-
-.PHONY: run-back
-
