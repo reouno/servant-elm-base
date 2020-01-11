@@ -1,14 +1,14 @@
-# back
+# backend
 
-# Build and Run
+## Build and Run
 
 ```
-make all
+make build-back
 make init-db
 make run
 ```
 
-# API
+## API
 
 detail documentation: https://github.com/reouno/servant-elm-base/blob/master/back/docs/api.md
 
@@ -37,15 +37,19 @@ curl 127.0.0.1:8080/users \
 
 ```
 
-### `/diaries`
+### `/posts`
 
 ```
-# get diary list
-curl -XGET 127.0.0.1:8080/diaries
+# get post list
+curl -XGET 127.0.0.1:8080/posts
 
-# get diary by int ID
-curl -XGET 127.0.0.1:8080/diaries/1
+# get post by int ID
+curl -XGET 127.0.0.1:8080/posts/1
 ```
+
+# frontend
+
+TBD
 
 # Dependency graph
 
