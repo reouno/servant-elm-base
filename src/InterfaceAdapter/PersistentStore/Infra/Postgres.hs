@@ -12,6 +12,7 @@ import           Database.Persist.Postgresql
 
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types        ( PgPool )
 import           InterfaceAdapter.PersistentStore.Model                       ( migrateAll )
+import           InterfaceAdapter.PersistentStore.Model.Like.LikeStoreHandler
 import           InterfaceAdapter.PersistentStore.Model.Post.PostStoreHandler
 import           InterfaceAdapter.PersistentStore.Model.User.UserStoreHandler
 import           Usecase.Interface.PersistentStore.PersistentStore            ( PersistentStore (..) )

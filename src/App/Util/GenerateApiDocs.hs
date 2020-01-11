@@ -22,8 +22,9 @@ import           System.Environment             ( getArgs )
 import           Web.FormUrlEncoded             ( FromForm (..), ToForm (..) )
 
 import           App.Server
-import           App.Util.Seeds                 ( post1, user1 )
-import           Entity.Entity                  ( Post (..), User (..), UserId, UserUniqueKey )
+import           App.Util.Seeds                 ( like1, post1, user1 )
+import           Entity.Entity                  ( Like (..), Post (..), User (..), UserId,
+                                                  UserUniqueKey )
 import           InterfaceAdapter.Presenter.Api ( Api, api )
 
 main :: IO ()
@@ -55,6 +56,9 @@ instance ToSample UserUniqueKey where
 
 instance ToSample Post where
   toSamples _ = singleSample post1
+
+instance ToSample Like where
+  toSamples _ = singleSample like1
 
 apiDocs :: API
 apiDocs = docs api

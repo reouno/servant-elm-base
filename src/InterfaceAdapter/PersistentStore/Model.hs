@@ -45,5 +45,6 @@ PostImage json
 Like json
     postId PostId
     userId UserId
+    createdAt UTCTime default=CURRENT_TIMESTAMP
     deriving Read Eq Generic Show
 |]

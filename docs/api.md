@@ -1,3 +1,114 @@
+## GET /likes
+
+### Response:
+
+- Status code 200
+- Headers: []
+
+- Supported content types are:
+
+    - `application/json;charset=utf-8`
+    - `application/json`
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+[]
+```
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+[[1,{"createdAt":"2020-01-11T12:12:12Z","userId":3,"postId":1}]]
+```
+
+- Example (`application/json;charset=utf-8`):
+
+```javascript
+[[1,{"createdAt":"2020-01-11T12:12:12Z","userId":3,"postId":1}],[1,{"createdAt":"2020-01-11T12:12:12Z","userId":3,"postId":1}]]
+```
+
+## POST /likes
+
+### Request:
+
+- Supported content types are:
+
+    - `application/json;charset=utf-8`
+    - `application/json`
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+{"createdAt":"2020-01-11T12:12:12Z","userId":3,"postId":1}
+```
+
+### Response:
+
+- Status code 204
+- Headers: []
+
+- Supported content types are:
+
+    - `application/json;charset=utf-8`
+    - `application/json`
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+
+```
+
+## DELETE /likes/:id
+
+### Captures:
+
+- *id*: (integer) ID of entity
+
+### Response:
+
+- Status code 204
+- Headers: []
+
+- Supported content types are:
+
+    - `application/json;charset=utf-8`
+    - `application/json`
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+
+```
+
+## GET /likes/:id
+
+### Captures:
+
+- *id*: (integer) ID of entity
+
+### Response:
+
+- Status code 200
+- Headers: []
+
+- Supported content types are:
+
+    - `application/json;charset=utf-8`
+    - `application/json`
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+null
+```
+
+- Example (`application/json;charset=utf-8`, `application/json`):
+
+```javascript
+{"createdAt":"2020-01-11T12:12:12Z","userId":3,"postId":1}
+```
+
 ## GET /posts
 
 ### Response:

@@ -20,9 +20,11 @@ import           Database.Persist.Sql
 --       This is a big demerit of separation of type declaration and instance implementation.
 import           InterfaceAdapter.PersistentStore.Infra.Postgres
 
-import           Entity.Entity                                         ( Post (..), User (..) )
+import           Entity.Entity                                         ( Like (..), Post (..),
+                                                                         User (..) )
 import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
 import qualified InterfaceAdapter.PersistentStore.Model                as M
+import           InterfaceAdapter.PersistentStore.Model.Like.Adapter   ( fromEntityLike )
 import           InterfaceAdapter.PersistentStore.Model.Post.Adapter   ( fromEntityPost )
 import           InterfaceAdapter.PersistentStore.Model.User.Adapter   ( fromEntityUser )
 import           Usecase.Interface.PersistentStore.PersistentStore     ( PersistentStore (doMigration, withPool) )
@@ -36,6 +38,7 @@ plantSeeds =
     putStrLn "seeds were planted."
     insertUsers pool
     insertPosts pool
+    insertLikes pool
 
 insertUsers :: PgPool -> IO ()
 insertUsers pool =
@@ -47,6 +50,10 @@ insertPosts pool =
     postId <- runSqlPool (insert post) pool
     forM_ images $ \image ->
       runSqlPool (insert_ $ M.PostImage postId image) pool
+
+insertLikes :: PgPool -> IO ()
+insertLikes pool =
+  forM_ likes $ \like -> runSqlPool (insert_ . fromEntityLike $ like) pool
 
 users :: [User]
 users = [user1, user2, user3]
@@ -113,4 +120,13 @@ post2 =
   (read "2019-11-11 11:11:11" :: UTCTime) <:
   #userId @=
   2 <:
+  emptyRecord
+
+likes :: [Like]
+likes = [like1]
+
+like1 :: Like
+like1 =
+  #postId @= 1 <: #userId @= 3 <: #createdAt @=
+  (read "2020-01-11 12:12:12" :: UTCTime) <:
   emptyRecord
