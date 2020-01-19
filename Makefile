@@ -56,11 +56,18 @@ dump-schema:
 	./db/dump.sh
 
 ### frontend ###
-.PHONY: build-front
-build-front:
-	echo '🌞 build frontend...'; \
+.PHONY: install-front
+install-front:
+	echo '🌞 install frontend dependencies...'; \
 	cd front; \
 	yarn install
+
+.PHONY: build-front
+build-front:
+	echo '🏗  build frontend'; \
+	cd front; \
+	yarn build
+
 
 .PHONY: run-front
 run-front:
