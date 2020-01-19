@@ -2,7 +2,8 @@ module Main exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
-import Html exposing (Html, button, div, text)
+import Element exposing (Element, el, row, text)
+import Html exposing (Html)
 import Html.Events exposing (onClick)
 import Url
 
@@ -57,4 +58,21 @@ subscriptions model =
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = "Simple Post", body = [ text "Hello, world." ] }
+    { title = "Simple Post", body = elements model }
+
+
+elements : Model -> List (Html Msg)
+elements model =
+    [ Element.layout [] (mainView model) ]
+
+
+mainView : Model -> Element Msg
+mainView model =
+    row []
+        [ helloMessage
+        ]
+
+
+helloMessage : Element Msg
+helloMessage =
+    text "Hello, world."
