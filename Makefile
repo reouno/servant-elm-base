@@ -59,4 +59,11 @@ dump-schema:
 .PHONY: build-front
 build-front:
 	echo '🌞 build frontend...'; \
-	cd front
+	cd front; \
+	yarn install
+
+.PHONY: run-front
+run-front:
+	echo '🏃 running fronend...'; \
+	cd front; \
+	yarn client
