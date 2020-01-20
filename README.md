@@ -10,7 +10,7 @@ make run
 
 ## API
 
-detail documentation: https://github.com/reouno/servant-elm-base/blob/master/back/docs/api.md
+detail documentation: https://github.com/reouno/servant-elm-base/blob/master/docs/api.md
 
 ### `/users`
 
