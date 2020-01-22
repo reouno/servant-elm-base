@@ -5,4 +5,7 @@ import           Network.Wai.Handler.Warp ( run )
 import           App.Server               ( mkApp )
 
 main :: IO ()
-main = run 8080 =<< mkApp
+main = do
+  let port = 8080
+  print $ "Listening at " ++ show port ++ "..."
+  run port =<< mkApp
