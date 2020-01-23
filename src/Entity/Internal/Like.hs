@@ -7,13 +7,13 @@ module Entity.Internal.Like where
 import           Control.Lens
 import           Data.Extensible
 import           Data.Text
-import           Data.Time            ( UTCTime )
+import           Data.Time.Clock.POSIX ( POSIXTime )
 
-import           Entity.Internal.Post ( PostId )
-import           Entity.Internal.User ( UserId )
+import           Entity.Internal.Post  ( PostId )
+import           Entity.Internal.User  ( UserId )
 
 type Like
-   = Record '[ "postId" >: PostId, "userId" >: UserId, "createdAt" >: UTCTime]
+   = Record '[ "postId" >: PostId, "userId" >: UserId, "createdAt" >: POSIXTime]
 
 type LikeId = Int
 

@@ -13,6 +13,7 @@ import           Control.Monad.IO.Class                                ( liftIO 
 import           Data.Extensible
 import           Data.Text                                             hiding ( map )
 import           Data.Time
+import           Data.Time.Clock.POSIX                                 ( utcTimeToPOSIXSeconds )
 
 import           Database.Persist.Sql
 
@@ -61,19 +62,19 @@ users = [user1, user2, user3]
 user1 :: User
 user1 =
   #name @= "Neo" <: #email @= "neo@matrix.mov" <: #createdAt @=
-  (read "1999-09-11 00:00:00" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "1999-09-11 00:00:00" :: UTCTime)) <:
   emptyRecord
 
 user2 :: User
 user2 =
   #name @= "Morpheus" <: #email @= "morpheus@matrix.mov" <: #createdAt @=
-  (read "1812-09-11 00:00:00" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "1812-09-11 00:00:00" :: UTCTime)) <:
   emptyRecord
 
 user3 :: User
 user3 =
   #name @= "Trinity" <: #email @= "trinity@matrix.mov" <: #createdAt @=
-  (read "1995-12-31 12:13:14" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "1995-12-31 12:13:14" :: UTCTime)) <:
   emptyRecord
 
 posts :: [Post]
@@ -90,9 +91,9 @@ post1 =
   #allowAutoEdit @=
   True <:
   #createdAt @=
-  (read "2019-11-11 11:11:11" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
   #updatedAt @=
-  (read "2019-11-11 11:11:11" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
   #userId @=
   1 <:
   emptyRecord
@@ -115,9 +116,9 @@ post2 =
   #allowAutoEdit @=
   True <:
   #createdAt @=
-  (read "2019-11-11 11:11:11" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
   #updatedAt @=
-  (read "2019-11-11 11:11:11" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
   #userId @=
   2 <:
   emptyRecord
@@ -128,5 +129,5 @@ likes = [like1]
 like1 :: Like
 like1 =
   #postId @= 1 <: #userId @= 3 <: #createdAt @=
-  (read "2020-01-11 12:12:12" :: UTCTime) <:
+  (utcTimeToPOSIXSeconds (read "2020-01-11 12:12:12" :: UTCTime)) <:
   emptyRecord

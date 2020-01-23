@@ -7,6 +7,8 @@ module InterfaceAdapter.PersistentStore.Model.Post.Adapter where
 import           Control.Lens
 import           Data.Extensible
 import           Data.Text                                           hiding ( map )
+import           Data.Time.Clock.POSIX                               ( posixSecondsToUTCTime,
+                                                                       utcTimeToPOSIXSeconds )
 import           Database.Persist.Sql
 import           Database.Persist.Types                              ( Entity )
 
@@ -28,8 +30,8 @@ fromEntityPost post = (post', images)
         (post ^. #title)
         (post ^. #content)
         (post ^. #allowAutoEdit)
-        (post ^. #createdAt)
-        (post ^. #updatedAt)
+        (posixSecondsToUTCTime $ post ^. #createdAt)
+        (posixSecondsToUTCTime $ post ^. #updatedAt)
     images = post ^. #imageUrls
 
 fromEntityPostId :: PostId -> M.PostId
@@ -43,9 +45,9 @@ toEntityPost (M.Post userId title content allowAutoEdit createdAt updatedAt) ima
   #allowAutoEdit @=
   allowAutoEdit <:
   #createdAt @=
-  createdAt <:
+  utcTimeToPOSIXSeconds createdAt <:
   #updatedAt @=
-  updatedAt <:
+  utcTimeToPOSIXSeconds updatedAt <:
   #userId @=
   toEntityUserId userId <:
   emptyRecord

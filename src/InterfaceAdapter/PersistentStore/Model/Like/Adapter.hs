@@ -6,6 +6,8 @@ module InterfaceAdapter.PersistentStore.Model.Like.Adapter where
 
 import           Control.Lens
 import           Data.Extensible
+import           Data.Time.Clock.POSIX                               ( posixSecondsToUTCTime,
+                                                                       utcTimeToPOSIXSeconds )
 import           Database.Persist.Sql
 import           Database.Persist.Types                              ( Entity )
 
@@ -24,7 +26,7 @@ fromEntityLike like =
   M.Like
     (fromEntityPostId $ like ^. #postId)
     (fromEntityUserId $ like ^. #userId)
-    (like ^. #createdAt)
+    (posixSecondsToUTCTime $ like ^. #createdAt)
 
 fromEntityLikeId :: LikeId -> M.LikeId
 fromEntityLikeId = int2SqlKey
@@ -32,7 +34,7 @@ fromEntityLikeId = int2SqlKey
 toEntityLike :: M.Like -> Like
 toEntityLike (M.Like postId userId createdAt) =
   #postId @= (sqlKey2Int postId) <: #userId @= (sqlKey2Int userId) <: #createdAt @=
-  createdAt <:
+  utcTimeToPOSIXSeconds createdAt <:
   emptyRecord
 
 toEntityLikeId :: M.LikeId -> LikeId
