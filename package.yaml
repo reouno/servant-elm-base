@@ -69,6 +69,7 @@ executables:
       - -with-rtsopts=-N
     dependencies:
       - servant-elm-base
+      - wai-cors
       - warp
 
 tests:
