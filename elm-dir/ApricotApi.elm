@@ -18,7 +18,7 @@ maybeBoolToIntStr mx =
     Just False -> "0"
 
 
-getUsers : (Result Http.Error  ((List (Int, (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
+getUsers : (Result Http.Error  ((List (EntityRecord Int (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
 getUsers toMsg =
     let
         params =
@@ -39,7 +39,7 @@ getUsers toMsg =
             , body =
                 Http.emptyBody
             , expect =
-                Http.expectJson toMsg (Json.Decode.list (jsonDec(Int, (:& (': (':> "name" Text) (': (':> "email" Text) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
+                Http.expectJson toMsg (Json.Decode.list (jsonDec(EntityRecord Int (:& (': (':> "name" Text) (': (':> "email" Text) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
             , timeout =
                 Nothing
             , tracker =
@@ -190,7 +190,7 @@ postUsersUser body toMsg =
                 Nothing
             }
 
-getPosts : (Result Http.Error  ((List (Int, (:& (': (':> "title" String) (': (':> "content" String) (': (':> "imageUrls" (List String)) (': (':> "allowAutoEdit" Bool) (': (':> "createdAt" NominalDiffTime) (': (':> "updatedAt" NominalDiffTime) (': (':> "userId" Int) '[]))))))) (Field Identity)))))  -> msg) -> Cmd msg
+getPosts : (Result Http.Error  ((List (EntityRecord Int (:& (': (':> "title" String) (': (':> "content" String) (': (':> "imageUrls" (List String)) (': (':> "allowAutoEdit" Bool) (': (':> "createdAt" NominalDiffTime) (': (':> "updatedAt" NominalDiffTime) (': (':> "userId" Int) '[]))))))) (Field Identity)))))  -> msg) -> Cmd msg
 getPosts toMsg =
     let
         params =
@@ -211,7 +211,7 @@ getPosts toMsg =
             , body =
                 Http.emptyBody
             , expect =
-                Http.expectJson toMsg (Json.Decode.list (jsonDec(Int, (:& (': (':> "title" Text) (': (':> "content" Text) (': (':> "imageUrls" (List Text)) (': (':> "allowAutoEdit" Bool) (': (':> "createdAt" NominalDiffTime) (': (':> "updatedAt" NominalDiffTime) (': (':> "userId" Int) '[]))))))) (Field Identity)))))
+                Http.expectJson toMsg (Json.Decode.list (jsonDec(EntityRecord Int (:& (': (':> "title" Text) (': (':> "content" Text) (': (':> "imageUrls" (List Text)) (': (':> "allowAutoEdit" Bool) (': (':> "createdAt" NominalDiffTime) (': (':> "updatedAt" NominalDiffTime) (': (':> "userId" Int) '[]))))))) (Field Identity)))))
             , timeout =
                 Nothing
             , tracker =
@@ -333,7 +333,7 @@ deletePostsById capture_id toMsg =
                 Nothing
             }
 
-getLikes : (Result Http.Error  ((List (Int, (:& (': (':> "postId" Int) (': (':> "userId" Int) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
+getLikes : (Result Http.Error  ((List (EntityRecord Int (:& (': (':> "postId" Int) (': (':> "userId" Int) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
 getLikes toMsg =
     let
         params =
@@ -354,7 +354,7 @@ getLikes toMsg =
             , body =
                 Http.emptyBody
             , expect =
-                Http.expectJson toMsg (Json.Decode.list (jsonDec(Int, (:& (': (':> "postId" Int) (': (':> "userId" Int) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
+                Http.expectJson toMsg (Json.Decode.list (jsonDec(EntityRecord Int (:& (': (':> "postId" Int) (': (':> "userId" Int) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
             , timeout =
                 Nothing
             , tracker =

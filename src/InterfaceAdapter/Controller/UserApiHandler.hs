@@ -3,6 +3,7 @@ module InterfaceAdapter.Controller.UserApiHandler where
 import           Control.Monad.IO.Class                            ( liftIO )
 import           Servant                                           ( (:<|>) (..), NoContent (..),
                                                                      Server )
+import           ServantUtil                                       ( EntityRecord (..) )
 
 import           InterfaceAdapter.Presenter.User.UserApi           ( UserApi, UserBaseApi,
                                                                      UserManipulationApi )
@@ -13,7 +14,7 @@ import           Usecase.Interface.PersistentStore.PersistentStore ( PersistentS
 baseApiHandler :: PersistentStore pool => pool -> Server UserBaseApi
 baseApiHandler pool = getEntities pool :<|> newEntity pool :<|> operations pool
   where
-    getEntities = liftIO . getUsers
+    getEntities = liftIO . (fmap (map (uncurry EntityRecord)) . getUsers)
     newEntity pool user = liftIO $ newUser pool user >> return NoContent
     operations pool id' =
       getEntity pool id' :<|> updateEntity pool id' :<|> deleteEntity pool id'

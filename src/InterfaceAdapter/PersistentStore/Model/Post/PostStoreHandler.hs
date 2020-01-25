@@ -8,8 +8,10 @@
 module InterfaceAdapter.PersistentStore.Model.Post.PostStoreHandler where
 
 import           Conduit                                               ( MonadUnliftIO )
+import           Control.Lens
 import           Control.Monad.IO.Class                                ( liftIO )
 import           Control.Monad.Reader                                  ( ReaderT )
+import           Data.Extensible
 import           Database.Persist
 import           Database.Persist.Sql
 

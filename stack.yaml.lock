@@ -19,19 +19,19 @@ packages:
   original:
     url: https://github.com/reouno/persistent-util/archive/0.3.2.14.14.tar.gz
 - completed:
-    size: 3715
-    url: https://github.com/reouno/servant-util/archive/0.3.1.14.14.tar.gz
+    size: 3953
+    url: https://github.com/reouno/servant-util/archive/0.4.0.14.14.tar.gz
     cabal-file:
-      size: 821
-      sha256: a57383fca9d2352cef07a7ed66a8e4a0f2f5227b1933210848fb61321fa16282
+      size: 862
+      sha256: a49c581cf3257b6ada09138ddbe849d33584d3d33962be172cff91ed2d69d541
     name: servant-util
-    version: 0.3.1.14.14
-    sha256: 4fce77bd06fbcb148e25f4f8daa71157e4ad5aa084028ab85a9f73541fed02f5
+    version: 0.4.0.14.14
+    sha256: b775ccac829eb6d712f8a541c83f7fe62e72e239fa64c38ab57decb1068c2b6a
     pantry-tree:
-      size: 545
-      sha256: 34e3fb99f66dc6d491ad67f66623df102698c5a9765d31b3183ac29631290c90
+      size: 609
+      sha256: 513ef4014b3ca3f359a459cba5fa04e7b985a182eac7043138c7818d22207d49
   original:
-    url: https://github.com/reouno/servant-util/archive/0.3.1.14.14.tar.gz
+    url: https://github.com/reouno/servant-util/archive/0.4.0.14.14.tar.gz
 - completed:
     hackage: extensible-0.6.1@sha256:d73a5dc13bd00f44ace729f83ce868e81a45ea31c7453a6f8a4a9b5b0591d600,2860
     pantry-tree:
