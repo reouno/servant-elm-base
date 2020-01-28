@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
-import Element exposing (Element, column, el, fill, padding, paragraph, rgb, text, width)
+import Element exposing (Element, column, el, fill, padding, paragraph, px, rgb, text, width)
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
@@ -163,7 +163,15 @@ postView post =
 inputPostView : String -> Element Msg
 inputPostView newPost =
     column []
-        [ Input.multiline [ width fill ] { label = Input.labelHidden "newPost", onChange = ChangePostInput, placeholder = Nothing, spellcheck = False, text = newPost } ]
+        [ Input.multiline
+            [ width <| px 500 ]
+            { label = Input.labelHidden "newPost"
+            , onChange = ChangePostInput
+            , placeholder = Nothing
+            , spellcheck = False
+            , text = newPost
+            }
+        ]
 
 
 main : Program () Model Msg
