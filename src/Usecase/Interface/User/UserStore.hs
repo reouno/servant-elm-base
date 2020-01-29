@@ -1,8 +1,12 @@
 module Usecase.Interface.User.UserStore where
 
-import           Conduit       ( MonadUnliftIO )
+import           Conduit                        ( MonadUnliftIO )
 
-import           Entity.Entity ( User (..), UserId, UserRecord, UserUniqueKey )
+import           Entity.Entity                  ( User(..)
+                                                , UserId
+                                                , UserRecord
+                                                , UserUniqueKey
+                                                )
 
 class UserStore pool where
   getUsers :: MonadUnliftIO m => pool -> m [UserRecord]
