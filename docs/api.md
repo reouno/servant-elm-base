@@ -276,13 +276,13 @@ null
 - Example (`application/json;charset=utf-8`, `application/json`):
 
 ```javascript
-[{"id":1,"entity":{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}}]
+[{"id":1,"entity":{"email":"neo@matrix.mov","name":"Neo"}}]
 ```
 
 - Example (`application/json;charset=utf-8`):
 
 ```javascript
-[{"id":1,"entity":{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}},{"id":1,"entity":{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}}]
+[{"id":1,"entity":{"email":"neo@matrix.mov","name":"Neo"}},{"id":1,"entity":{"email":"neo@matrix.mov","name":"Neo"}}]
 ```
 
 ## POST /users
@@ -297,7 +297,7 @@ null
 - Example (`application/json;charset=utf-8`, `application/json`):
 
 ```javascript
-{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}
+{"email":"neo@matrix.mov","name":"Neo"}
 ```
 
 ### Response:
@@ -363,7 +363,7 @@ null
 - Example (`application/json;charset=utf-8`, `application/json`):
 
 ```javascript
-{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}
+{"email":"neo@matrix.mov","name":"Neo"}
 ```
 
 ## PUT /users/:id
@@ -382,7 +382,7 @@ null
 - Example (`application/json;charset=utf-8`, `application/json`):
 
 ```javascript
-{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}
+{"email":"neo@matrix.mov","name":"Neo"}
 ```
 
 ### Response:
@@ -435,6 +435,6 @@ null
 - Example (`application/json;charset=utf-8`, `application/json`):
 
 ```javascript
-[1,{"email":"neo@matrix.mov","createdAt":937008000,"name":"Neo"}]
+[1,{"email":"neo@matrix.mov","name":"Neo"}]
 ```
 

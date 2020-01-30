@@ -41,7 +41,8 @@ instance UserStore PgPool where
   getUser pool key = fmap toEntityUser <$> get' (fromEntityUserId key) pool
   getUserBy pool uniqueKey =
     fmap toEntityUserRecord <$> getBy' (fromEntityUserUniqueKey uniqueKey) pool
-  newUser pool user = toEntityUserId <$> insert' (fromEntityUser user) pool
-  replaceUser pool id' user =
-    replace' (fromEntityUserId id') (fromEntityUser user) pool
+  newUser pool now user =
+    toEntityUserId <$> insert' (fromEntityUser now user) pool
+  replaceUser pool now id' user =
+    replace' (fromEntityUserId id') (fromEntityUser now user) pool
   deleteUser pool id' = delete' (fromEntityUserId id') pool

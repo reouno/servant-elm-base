@@ -18,7 +18,7 @@ maybeBoolToIntStr mx =
     Just False -> "0"
 
 
-getUsers : (Result Http.Error  ((List (EntityRecord Int (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
+getUsers : (Result Http.Error  ((List (EntityRecord Int (:& (': (':> "name" String) (': (':> "email" String) '[])) (Field Identity)))))  -> msg) -> Cmd msg
 getUsers toMsg =
     let
         params =
@@ -39,14 +39,14 @@ getUsers toMsg =
             , body =
                 Http.emptyBody
             , expect =
-                Http.expectJson toMsg (Json.Decode.list (jsonDec(EntityRecord Int (:& (': (':> "name" Text) (': (':> "email" Text) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
+                Http.expectJson toMsg (Json.Decode.list (jsonDec(EntityRecord Int (:& (': (':> "name" Text) (': (':> "email" Text) '[])) (Field Identity)))))
             , timeout =
                 Nothing
             , tracker =
                 Nothing
             }
 
-postUsers : (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)) -> (Result Http.Error  (NoContent)  -> msg) -> Cmd msg
+postUsers : (:& (': (':> "name" String) (': (':> "email" String) '[])) (Field Identity)) -> (Result Http.Error  (NoContent)  -> msg) -> Cmd msg
 postUsers body toMsg =
     let
         params =
@@ -65,7 +65,7 @@ postUsers body toMsg =
                     ]
                     params
             , body =
-                Http.jsonBody ((jsonEnc:& ((jsonEnc': ((jsonEnc':> (jsonEnc"name") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"email") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"createdAt") (jsonEncNominalDiffTime))) (jsonEnc'[]))))))) ((jsonEncField (jsonEncIdentity)))) body)
+                Http.jsonBody ((jsonEnc:& ((jsonEnc': ((jsonEnc':> (jsonEnc"name") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"email") (Json.Encode.string))) (jsonEnc'[]))))) ((jsonEncField (jsonEncIdentity)))) body)
             , expect =
                 Http.expectJson toMsg jsonDecNoContent
             , timeout =
@@ -74,7 +74,7 @@ postUsers body toMsg =
                 Nothing
             }
 
-getUsersById : Int -> (Result Http.Error  ((Maybe (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity))))  -> msg) -> Cmd msg
+getUsersById : Int -> (Result Http.Error  ((Maybe (:& (': (':> "name" String) (': (':> "email" String) '[])) (Field Identity))))  -> msg) -> Cmd msg
 getUsersById capture_id toMsg =
     let
         params =
@@ -96,14 +96,14 @@ getUsersById capture_id toMsg =
             , body =
                 Http.emptyBody
             , expect =
-                Http.expectJson toMsg (Json.Decode.maybe (jsonDec(:& (': (':> "name" Text) (': (':> "email" Text) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity))))
+                Http.expectJson toMsg (Json.Decode.maybe (jsonDec(:& (': (':> "name" Text) (': (':> "email" Text) '[])) (Field Identity))))
             , timeout =
                 Nothing
             , tracker =
                 Nothing
             }
 
-putUsersById : Int -> (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)) -> (Result Http.Error  (NoContent)  -> msg) -> Cmd msg
+putUsersById : Int -> (:& (': (':> "name" String) (': (':> "email" String) '[])) (Field Identity)) -> (Result Http.Error  (NoContent)  -> msg) -> Cmd msg
 putUsersById capture_id body toMsg =
     let
         params =
@@ -123,7 +123,7 @@ putUsersById capture_id body toMsg =
                     ]
                     params
             , body =
-                Http.jsonBody ((jsonEnc:& ((jsonEnc': ((jsonEnc':> (jsonEnc"name") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"email") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"createdAt") (jsonEncNominalDiffTime))) (jsonEnc'[]))))))) ((jsonEncField (jsonEncIdentity)))) body)
+                Http.jsonBody ((jsonEnc:& ((jsonEnc': ((jsonEnc':> (jsonEnc"name") (Json.Encode.string))) ((jsonEnc': ((jsonEnc':> (jsonEnc"email") (Json.Encode.string))) (jsonEnc'[]))))) ((jsonEncField (jsonEncIdentity)))) body)
             , expect =
                 Http.expectJson toMsg jsonDecNoContent
             , timeout =
@@ -161,7 +161,7 @@ deleteUsersById capture_id toMsg =
                 Nothing
             }
 
-postUsersUser : String -> (Result Http.Error  ((Maybe (Int, (:& (': (':> "name" String) (': (':> "email" String) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))  -> msg) -> Cmd msg
+postUsersUser : String -> (Result Http.Error  ((Maybe (Int, (:& (': (':> "name" String) (': (':> "email" String) '[])) (Field Identity)))))  -> msg) -> Cmd msg
 postUsersUser body toMsg =
     let
         params =
@@ -183,7 +183,7 @@ postUsersUser body toMsg =
             , body =
                 Http.jsonBody (Json.Encode.string body)
             , expect =
-                Http.expectJson toMsg (Json.Decode.maybe (jsonDec(Int, (:& (': (':> "name" Text) (': (':> "email" Text) (': (':> "createdAt" NominalDiffTime) '[]))) (Field Identity)))))
+                Http.expectJson toMsg (Json.Decode.maybe (jsonDec(Int, (:& (': (':> "name" Text) (': (':> "email" Text) '[])) (Field Identity)))))
             , timeout =
                 Nothing
             , tracker =

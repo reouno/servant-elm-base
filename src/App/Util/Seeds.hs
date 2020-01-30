@@ -11,7 +11,9 @@ import           Control.Lens
 import           Control.Monad                  ( forM_ )
 import           Control.Monad.IO.Class         ( liftIO )
 import           Data.Extensible
-import           Data.Text               hiding ( map )
+import           Data.Text               hiding ( map
+                                                , zip
+                                                )
 import           Data.Time
 import           Data.Time.Clock.POSIX          ( utcTimeToPOSIXSeconds )
 
@@ -53,8 +55,14 @@ plantSeeds = withPool $ \(pool :: PgPool) -> do
   insertLikes pool
 
 insertUsers :: PgPool -> IO ()
-insertUsers pool =
-  forM_ users $ \user -> runSqlPool (insert_ . fromEntityUser $ user) pool
+insertUsers pool = forM_ (zip timestamps users)
+  $ \(tm, user) -> runSqlPool (insert_ $ fromEntityUser tm user) pool
+ where
+  timestamps =
+    [ read "1999-09-11 00:00:00" :: UTCTime
+    , read "1812-09-11 00:00:00" :: UTCTime
+    , read "1995-12-31 12:13:14" :: UTCTime
+    ]
 
 insertPosts :: PgPool -> IO ()
 insertPosts pool = forM_ (map fromEntityPost posts) $ \(post, images) -> do
@@ -69,34 +77,13 @@ users :: [User]
 users = [user1, user2, user3]
 
 user1 :: User
-user1 =
-  #name
-    @= "Neo"
-    <: #email
-    @= "neo@matrix.mov"
-    <: #createdAt
-    @= (utcTimeToPOSIXSeconds (read "1999-09-11 00:00:00" :: UTCTime))
-    <: emptyRecord
+user1 = #name @= "Neo" <: #email @= "neo@matrix.mov" <: emptyRecord
 
 user2 :: User
-user2 =
-  #name
-    @= "Morpheus"
-    <: #email
-    @= "morpheus@matrix.mov"
-    <: #createdAt
-    @= (utcTimeToPOSIXSeconds (read "1812-09-11 00:00:00" :: UTCTime))
-    <: emptyRecord
+user2 = #name @= "Morpheus" <: #email @= "morpheus@matrix.mov" <: emptyRecord
 
 user3 :: User
-user3 =
-  #name
-    @= "Trinity"
-    <: #email
-    @= "trinity@matrix.mov"
-    <: #createdAt
-    @= (utcTimeToPOSIXSeconds (read "1995-12-31 12:13:14" :: UTCTime))
-    <: emptyRecord
+user3 = #name @= "Trinity" <: #email @= "trinity@matrix.mov" <: emptyRecord
 
 posts :: [Post]
 posts = [post1, post2]

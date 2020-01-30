@@ -7,9 +7,7 @@ module InterfaceAdapter.PersistentStore.Model.User.Adapter where
 import           Control.Lens
 import           Data.Extensible
 import           Data.Text
-import           Data.Time.Clock.POSIX          ( posixSecondsToUTCTime
-                                                , utcTimeToPOSIXSeconds
-                                                )
+import           Data.Time                      ( UTCTime )
 import           Database.Persist.Sql           ( entityKey
                                                 , entityVal
                                                 )
@@ -33,10 +31,8 @@ fromEntityUserId = int2SqlKey
 fromEntityUserUniqueKey :: UserUniqueKey -> M.Unique M.User
 fromEntityUserUniqueKey = M.UniqueEmail
 
-fromEntityUser :: User -> M.User
-fromEntityUser user = M.User (user ^. #name)
-                             (user ^. #email)
-                             (posixSecondsToUTCTime $ user ^. #createdAt)
+fromEntityUser :: UTCTime -> User -> M.User
+fromEntityUser now user = M.User (user ^. #name) (user ^. #email) now
 
 toEntityUserId :: M.UserId -> UserId
 toEntityUserId = sqlKey2Int
@@ -46,13 +42,7 @@ toEntityUserUniqueKey (M.UniqueEmail email) = email
 
 toEntityUser :: M.User -> User
 toEntityUser (M.User name email _) =
-  #name
-    @= name
-    <: #email
-    @= email
-    <: #createdAt
-    @= utcTimeToPOSIXSeconds createdAt
-    <: emptyRecord
+  #name @= name <: #email @= email <: emptyRecord
 
 toEntityUserRecord :: Entity M.User -> UserRecord
 toEntityUserRecord user =
