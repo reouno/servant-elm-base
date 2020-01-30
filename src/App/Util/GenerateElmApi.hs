@@ -8,18 +8,19 @@
 
 module App.Util.GenerateElmApi where
 
-import           Servant.Elm                    ( DefineElm (DefineElm), Proxy (Proxy),
-                                                  defElmImports, defElmOptions,
-                                                  generateElmModuleWith )
+import           Servant.Elm                    ( DefineElm(DefineElm)
+                                                , Proxy(Proxy)
+                                                , defElmImports
+                                                , defElmOptions
+                                                , generateElmModuleWith
+                                                )
 
 import           InterfaceAdapter.Presenter.Api ( Api )
 
 main :: IO ()
-main =
-  generateElmModuleWith
-    defElmOptions
-    ["ApricotApi"]
-    defElmImports
-    "elm-dir"
-    []
-    (Proxy :: Proxy Api)
+main = generateElmModuleWith defElmOptions
+                             ["ApricotApi"]
+                             defElmImports
+                             "elm-dir"
+                             []
+                             (Proxy :: Proxy Api)
