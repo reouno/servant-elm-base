@@ -6,14 +6,14 @@
 
 module App.Util.Seeds where
 
-import           Conduit                                               ( MonadUnliftIO )
+import           Conduit                        ( MonadUnliftIO )
 import           Control.Lens
-import           Control.Monad                                         ( forM_ )
-import           Control.Monad.IO.Class                                ( liftIO )
+import           Control.Monad                  ( forM_ )
+import           Control.Monad.IO.Class         ( liftIO )
 import           Data.Extensible
-import           Data.Text                                             hiding ( map )
+import           Data.Text               hiding ( map )
 import           Data.Time
-import           Data.Time.Clock.POSIX                                 ( utcTimeToPOSIXSeconds )
+import           Data.Time.Clock.POSIX          ( utcTimeToPOSIXSeconds )
 
 import           Database.Persist.Sql
 
@@ -21,36 +21,45 @@ import           Database.Persist.Sql
 --       This is a big demerit of separation of type declaration and instance implementation.
 import           InterfaceAdapter.PersistentStore.Infra.Postgres
 
-import           Entity.Entity                                         ( Like (..), Post (..),
-                                                                         User (..) )
-import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types ( PgPool )
-import qualified InterfaceAdapter.PersistentStore.Model                as M
-import           InterfaceAdapter.PersistentStore.Model.Like.Adapter   ( fromEntityLike )
-import           InterfaceAdapter.PersistentStore.Model.Post.Adapter   ( fromEntityPost )
-import           InterfaceAdapter.PersistentStore.Model.User.Adapter   ( fromEntityUser )
-import           Usecase.Interface.PersistentStore.PersistentStore     ( PersistentStore (doMigration, withPool) )
+import           Entity.Entity                  ( Like(..)
+                                                , Post(..)
+                                                , User(..)
+                                                )
+import           InterfaceAdapter.PersistentStore.Infra.Postgres.Types
+                                                ( PgPool )
+import qualified InterfaceAdapter.PersistentStore.Model
+                                               as M
+import           InterfaceAdapter.PersistentStore.Model.Like.Adapter
+                                                ( fromEntityLike )
+import           InterfaceAdapter.PersistentStore.Model.Post.Adapter
+                                                ( fromEntityPost )
+import           InterfaceAdapter.PersistentStore.Model.User.Adapter
+                                                ( fromEntityUser )
+import           Usecase.Interface.PersistentStore.PersistentStore
+                                                ( PersistentStore
+                                                  ( doMigration
+                                                  , withPool
+                                                  )
+                                                )
 
 main :: IO ()
 main = plantSeeds
 
 plantSeeds :: IO ()
-plantSeeds =
-  withPool $ \(pool :: PgPool) -> do
-    putStrLn "seeds were planted."
-    insertUsers pool
-    insertPosts pool
-    insertLikes pool
+plantSeeds = withPool $ \(pool :: PgPool) -> do
+  putStrLn "seeds were planted."
+  insertUsers pool
+  insertPosts pool
+  insertLikes pool
 
 insertUsers :: PgPool -> IO ()
 insertUsers pool =
   forM_ users $ \user -> runSqlPool (insert_ . fromEntityUser $ user) pool
 
 insertPosts :: PgPool -> IO ()
-insertPosts pool =
-  forM_ (map fromEntityPost posts) $ \(post, images) -> do
-    postId <- runSqlPool (insert post) pool
-    forM_ images $ \image ->
-      runSqlPool (insert_ $ M.PostImage postId image) pool
+insertPosts pool = forM_ (map fromEntityPost posts) $ \(post, images) -> do
+  postId <- runSqlPool (insert post) pool
+  forM_ images $ \image -> runSqlPool (insert_ $ M.PostImage postId image) pool
 
 insertLikes :: PgPool -> IO ()
 insertLikes pool =
@@ -61,73 +70,93 @@ users = [user1, user2, user3]
 
 user1 :: User
 user1 =
-  #name @= "Neo" <: #email @= "neo@matrix.mov" <: #createdAt @=
-  (utcTimeToPOSIXSeconds (read "1999-09-11 00:00:00" :: UTCTime)) <:
-  emptyRecord
+  #name
+    @= "Neo"
+    <: #email
+    @= "neo@matrix.mov"
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "1999-09-11 00:00:00" :: UTCTime))
+    <: emptyRecord
 
 user2 :: User
 user2 =
-  #name @= "Morpheus" <: #email @= "morpheus@matrix.mov" <: #createdAt @=
-  (utcTimeToPOSIXSeconds (read "1812-09-11 00:00:00" :: UTCTime)) <:
-  emptyRecord
+  #name
+    @= "Morpheus"
+    <: #email
+    @= "morpheus@matrix.mov"
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "1812-09-11 00:00:00" :: UTCTime))
+    <: emptyRecord
 
 user3 :: User
 user3 =
-  #name @= "Trinity" <: #email @= "trinity@matrix.mov" <: #createdAt @=
-  (utcTimeToPOSIXSeconds (read "1995-12-31 12:13:14" :: UTCTime)) <:
-  emptyRecord
+  #name
+    @= "Trinity"
+    <: #email
+    @= "trinity@matrix.mov"
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "1995-12-31 12:13:14" :: UTCTime))
+    <: emptyRecord
 
 posts :: [Post]
 posts = [post1, post2]
 
 post1 :: Post
 post1 =
-  #title @= "AutoPost" <: #content @=
-  "This is the first post which is generated by Apricot. Images may be included in it as well." <:
-  #imageUrls @=
-  [ "https://upload.wikimedia.org/wikipedia/commons/c/c4/Apricot_fruit.jpg"
-  , "https://bedemco.com/bdc/wp-content/uploads/2017/12/shutterstock_178969106-1-1-570x385.jpg"
-  ] <:
-  #allowAutoEdit @=
-  True <:
-  #createdAt @=
-  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
-  #updatedAt @=
-  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
-  #userId @=
-  1 <:
-  emptyRecord
+  #title
+    @= "AutoPost"
+    <: #content
+    @= "This is the first post which is generated by Apricot. Images may be included in it as well."
+    <: #imageUrls
+    @= [ "https://upload.wikimedia.org/wikipedia/commons/c/c4/Apricot_fruit.jpg"
+       , "https://bedemco.com/bdc/wp-content/uploads/2017/12/shutterstock_178969106-1-1-570x385.jpg"
+       ]
+    <: #allowAutoEdit
+    @= True
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime))
+    <: #updatedAt
+    @= (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime))
+    <: #userId
+    @= 1
+    <: emptyRecord
 
 post2 :: Post
 post2 =
-  #title @= "Define your personal mission in life!" <: #content @=
-  "The key insights from The 7 Habits of Highly Effective People:\n\
+  #title
+    @= "Define your personal mission in life!"
+    <: #content
+    @= "The key insights from The 7 Habits of Highly Effective People:\n\
   \1. Sharpen the saw\n\
   \2. Be proactive\n\
   \3. Begin with an end in mind\n\
   \4. Pu first things first\n\
   \5. Think win-win\n\
   \6. Seek first to understand, then to be understood\n\
-  \7. Synergize\n" <:
-  #imageUrls @=
-  [ "https://m.media-amazon.com/images/I/51OuvCFwyZL._SL500_.jpg"
-  , "https://archive.sltrib.com/images/2012/0717/biz_obit-covey_071712~2.jpg"
-  ] <:
-  #allowAutoEdit @=
-  True <:
-  #createdAt @=
-  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
-  #updatedAt @=
-  (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime)) <:
-  #userId @=
-  2 <:
-  emptyRecord
+  \7. Synergize\n"
+    <: #imageUrls
+    @= [ "https://m.media-amazon.com/images/I/51OuvCFwyZL._SL500_.jpg"
+       , "https://archive.sltrib.com/images/2012/0717/biz_obit-covey_071712~2.jpg"
+       ]
+    <: #allowAutoEdit
+    @= True
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime))
+    <: #updatedAt
+    @= (utcTimeToPOSIXSeconds (read "2019-11-11 11:11:11" :: UTCTime))
+    <: #userId
+    @= 2
+    <: emptyRecord
 
 likes :: [Like]
 likes = [like1]
 
 like1 :: Like
 like1 =
-  #postId @= 1 <: #userId @= 3 <: #createdAt @=
-  (utcTimeToPOSIXSeconds (read "2020-01-11 12:12:12" :: UTCTime)) <:
-  emptyRecord
+  #postId
+    @= 1
+    <: #userId
+    @= 3
+    <: #createdAt
+    @= (utcTimeToPOSIXSeconds (read "2020-01-11 12:12:12" :: UTCTime))
+    <: emptyRecord
